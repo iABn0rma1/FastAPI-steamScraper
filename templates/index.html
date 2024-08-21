@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Discounted Games</title>
+</head>
+<body>
+    <h1>Discounted Games</h1>
+    <div class="grid-container">
+        {% for game in games %}
+        <div class="grid-item">
+            <h2>{{ game.Name }}</h2>
+            <p>Released: {{ game.Date }}</p>
+            <p>Platforms: {{ game.Platforms | join(", ") }}</p>
+            <p>Original Price: {{ game.Original_Price }}</p>
+            <p>Discount: {{ game.Discount_Percentage }}</p>
+            <p>Discounted Price: {{ game.Discount_Price }}</p>
+            <p>Reviews: {{ game.Reviews }}</p>
+            <p>Review Count: {{ game.Review_Count }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
