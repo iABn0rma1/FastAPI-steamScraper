@@ -24,3 +24,7 @@ def get_discounted_games(request: Request, n: int = 50):
     scraper = SteamStoreScraper()
     games = scraper.ScrapeGames(n0Games=n)
     return templates.TemplateResponse("index.html", {"request": request, "games": games})
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
