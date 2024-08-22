@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from scraper import SteamStoreScraper  # Import from scraper.py
+from scraper import SteamStoreScraper 
 
 app = FastAPI()
 
@@ -24,7 +24,3 @@ def get_discounted_games(request: Request, n: int = 50):
     scraper = SteamStoreScraper()
     games = scraper.ScrapeGames(n0Games=n)
     return templates.TemplateResponse("index.html", {"request": request, "games": games})
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
