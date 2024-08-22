@@ -1,26 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/style.css">
-    <title>Discounted Games</title>
+    <title>Discounted Games - Steam Style</title>
+    <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <h1>Discounted Games</h1>
-    <div class="grid-container">
+
+    <div class="grid-container" id="games-container">
         {% for game in games %}
+        <a href="{{ game.href }}">
         <div class="grid-item">
-            <h2>{{ game.Name }}</h2>
-            <p>Released: {{ game.Date }}</p>
-            <p>Platforms: {{ game.Platforms | join(", ") }}</p>
-            <p>Original Price: {{ game.Original_Price }}</p>
-            <p>Discount: {{ game.Discount_Percentage }}</p>
-            <p>Discounted Price: {{ game.Discount_Price }}</p>
-            <p>Reviews: {{ game.Reviews }}</p>
-            <p>Review Count: {{ game.Review_Count }}</p>
+            <div class="game-header">
+                <img src="{{ game.image_url }}" alt="{{ game.Name }} image" class="game-image">
+                <h2 class="game-title">{{ game.Name }}</h2>
+            </div>
+
+            <div class="game-info">
+                {% if game.Date == None %}
+                <p> </p>
+                {% else %}
+                <p>{{ game.Date }}</p>
+                {% endif %}
+
+                {% if game.Reviews == None %}
+                <p> </p>
+
+                {% else %}
+
+                {% if 'Positive' in game.Reviews %}
+                <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png"
+                    alt="Positive">
+                {% endif %}
+                {% if 'Mixed' in game.Reviews %}
+                <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_mixed.png" alt="Mixed">
+                {% endif %}
+                {% if 'Negative' in game.Reviews %}
+                <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_negative.png"
+                    alt="Negative">
+                <p>{{ game.Reviews }}</p>
+                {% endif %}
+
+                {% endif %}
+            </div>
+
+            <div class="game-pricing">
+                <div class="platform-icons">
+                    {% if 'win' in game.Platforms %}
+                    <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_win.png?v=3"
+                        alt="Windows">
+                    {% endif %}
+                    {% if 'linux' in game.Platforms %}
+                    <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_linux.png"
+                        alt="Linux">
+                    {% endif %}
+                    {% if 'mac' in game.Platforms %}
+                    <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_mac.png" alt="MacOS">
+                    {% endif %}
+                </div>
+                <div class="discount">
+                    {{ game.discountPrcnt }}
+                </div>
+                <div class="prices">
+                    <p class="original-price">{{ game.Original_Price }}</p>
+                    <p class="discounted-price">{{ game.discount_price }}</p>
+                </div>
+            </div>
         </div>
+        </a>
         {% endfor %}
     </div>
+
 </body>
+
 </html>

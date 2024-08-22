@@ -1,6 +1,7 @@
 import re
 import io
 import sys
+import logging
 import requests
 from bs4 import BeautifulSoup
 
@@ -27,13 +28,14 @@ class SteamStoreScraper:
         self.base_url = "https://store.steampowered.com/search/?supportedlang=english&"
         self.cols = [
             "Name",
+            "image_url",
+            "href",
             "Date",
             "Platforms",
-            "Original Price",
-            "Discount %",
-            "Discount Price",
+            "Original_Price",
+            "discountPrcnt",
+            "discount_price",
             "Reviews",
-            "Review Count",
             "Filter",
         ]
 
@@ -131,81 +133,93 @@ class SteamStoreScraper:
             tuple: Game information tuple.
         """
         try:
-            name = game.find("span", {"class": "title"}).text
-            published_date = (
-                game.find(
-                    "div", {"class": "col search_released responsive_secondrow"}
-                ).text.strip()
-                or None
-            )
-        except:
-            name = None
-
-        try:
-            div_element = game.find("div", class_="col search_name ellipsis")
-            platform_images = div_element.find_all("span", class_="platform_img")
-            platforms = [
-                img.get("class")[1] if len(img.get("class")) > 1 else None
-                for img in platform_images
-            ]
-        except:
-            name = None
-
-        try:
-            original_price_elem = game.find("div", {"class": "discount_original_price"})
-            original_price = (
-                original_price_elem.text.strip() if original_price_elem else None
-            )
-        except:
-            original_price = None
-
-        try:
-            discount_pct_elem = game.find("div", {"class": "discount_pct"})
-            discount_pct = discount_pct_elem.text.strip() if discount_pct_elem else None
-        except:
-            discount_pct = None
-
-        try:
-            discount_price_elem = game.find("div", {"class": "discount_final_price"})
-            discount_price = (
-                discount_price_elem.text.strip() if discount_price_elem else None
-            )
-        except:
-            discount_price = None
-
-        try:
-            review_summary = game.find("span", {"class": "search_review_summary"})
-            reviews_html = (
-                review_summary["data-tooltip-html"] if review_summary else None
-            )
-            pattern = r"(.+)<br>(\d+%)\s+of\s+the\s+([\d,]+)\s+user reviews.*"
-            match = re.match(pattern, reviews_html)
-            sentiment = match.group(1) if match else None
-            percentage = match.group(2) if match else None
+            try:
+                name = game.find("span", {"class": "title"}).text
+                published_date = (
+                    game.find(
+                        "div", {"class": "col search_released responsive_secondrow"}
+                    ).text.strip()
+                    or None
+                )
+            except:
+                name = None
 
             try:
-                review_count = match.group(3).replace(",", "") if match else None
+                image_div = game.find('div', class_='search_capsule')
+                image_url = image_div.find('img')['src'] if image_div else None
             except:
+                image_url = None
+
+            try:
+                href = game.get('href')
+            except:
+                href = None
+
+            try:
+                div_element = game.find("div", class_="col search_name ellipsis")
+                platform_images = div_element.find_all("span", class_="platform_img")
+                platforms = [
+                    img.get("class")[1] if len(img.get("class")) > 1 else None
+                    for img in platform_images
+                ]
+            except:
+                name = None
+
+            try:
+                original_price_elem = game.find("div", {"class": "discount_original_price"})
+                original_price = (
+                    original_price_elem.text.strip() if original_price_elem else None
+                )
+            except:
+                original_price = None
+
+            try:
+                discount_pct_elem = game.find("div", {"class": "discount_pct"})
+                discount_pct = discount_pct_elem.text.strip() if discount_pct_elem else None
+            except:
+                discount_pct = None
+
+            try:
+                discount_price_elem = game.find("div", {"class": "discount_final_price"})
+                discount_price = (
+                    discount_price_elem.text.strip() if discount_price_elem else None
+                )
+            except:
+                discount_price = None
+
+            try:
+                review_summary = game.find("span", {"class": "search_review_summary"})
+                reviews_html = (
+                    review_summary["data-tooltip-html"] if review_summary else None
+                )
+                pattern = r"(.+)<br>(\d+%)\s+of\s+the\s+([\d,]+)\s+user reviews.*"
+                match = re.match(pattern, reviews_html)
+                sentiment = match.group(1) if match else None
+                percentage = match.group(2) if match else None
+
+                try:
+                    reviews = f"{sentiment.strip()} - {percentage.strip()}"
+                except:
+                    review = None
+
+            except:
+                reviews = None
                 review_count = None
-
-            try:
-                reviews = f"{sentiment.strip()} - {percentage.strip()}"
-            except:
-                review = None
-
+        
         except:
-            reviews = None
-            review_count = None
+            logging.error(f"Error extracting info")
+            return None  # Skip this game if there are errors
 
         return (
             name,
+            image_url,
+            href,
             published_date,
             platforms,
             original_price,
             discount_pct,
             discount_price,
             reviews,
-            review_count,
         )
 
     def _scrape_page(self, url, filter, n0Games):
@@ -228,7 +242,7 @@ class SteamStoreScraper:
                 response.raise_for_status()
                 doc = BeautifulSoup(response.content, "html.parser")
                 games = doc.find_all(
-                    "div", {"class": "responsive_search_name_combined"}
+                    "a", {"class": "search_result_row ds_collapse_flag"}
                 )
 
                 for game in games:
