@@ -19,8 +19,9 @@ class Game(BaseModel):
     Reviews: str
     Review_Count: str
 
-@app.get("/", response_model=list[Game])
-def get_discounted_games(request: Request, n: int = 50):
+@app.get("/{n}", response_model=list[Game])
+def get_discounted_games(request: Request, n: int):
     scraper = SteamStoreScraper()
     games = scraper.ScrapeGames(n0Games=n)
-    return templates.TemplateResponse("index.html", {"request": request, "games": games})
+    count = len(games)  # Get the count of scraped games
+    return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
