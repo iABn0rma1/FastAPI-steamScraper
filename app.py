@@ -31,4 +31,8 @@ def get_discounted_games(request: Request, n: int):
     scraper = SteamStoreScraper()
     games = scraper.ScrapeGames(n0Games=n)
     count = len(games)
-    return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
+    # When loading more games, only return the HTML for the new items
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return templates.TemplateResponse("index.html", {"request": request, "games": games}, media_type="text/html")
+    else:
+        return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})

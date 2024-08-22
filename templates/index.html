@@ -11,7 +11,7 @@
 <body>
     <h1>Discounted Games</h1>
 
-    <div class="grid-container" id="games-container">
+    <div class="grid-container" id="games-container" data-loaded="30">
         {% for game in games %}
         <a href="{{ game.href }}">
         <div class="grid-item">
@@ -75,6 +75,39 @@
         {% endfor %}
     </div>
 
+    <div class="loading-animation">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <script>
+        let loading = false;
+
+        async function loadMoreGames() {
+            if (loading) return;
+
+            loading = true;
+            const container = document.getElementById('games-container');
+            let loaded = parseInt(container.getAttribute('data-loaded'));
+
+            const response = await fetch(`/${loaded + 30}`);
+            const text = await response.text();
+
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = text;
+
+            const newItems = tempDiv.querySelectorAll('.grid-item');
+            newItems.forEach(item => container.appendChild(item));
+
+            container.setAttribute('data-loaded', loaded + 30);
+            loading = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
+                loadMoreGames();
+            }
+        });
+    </script>
 </body>
 
 </html>
