@@ -184,6 +184,7 @@
             .grid-container {
                 padding: 0 15vw;
             }
+
             .scroll-to-top {
                 right: 15px;
             }
@@ -200,7 +201,7 @@
 <body>
     <h1>Discounted Games</h1>
 
-    <div class="grid-container" id="games-container" data-loaded="30">
+    <div class="grid-container" id="games-container" data-loaded="50">
         {% for game in games %}
         <a href="{{ game.href }}">
             <div class="grid-item">
@@ -265,7 +266,7 @@
         {% endfor %}
     </div>
 
-    <div class="loading-animation">
+    <div id="loading" class="loading-animation">
         <div class="lds-hourglass"></div>
     </div>
 
@@ -276,7 +277,7 @@
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) { // Show the button after scrolling down 300px
+            if (window.scrollY > 300) {
                 scrollToTopBtn.style.display = 'block';
             } else {
                 scrollToTopBtn.style.display = 'none';
@@ -301,7 +302,7 @@
             const container = document.getElementById('games-container');
             let loaded = parseInt(container.getAttribute('data-loaded'));
 
-            const response = await fetch(`/${loaded + 30}`);
+            const response = await fetch(`/?n=50&offset=${loaded}`);
             const text = await response.text();
 
             const tempDiv = document.createElement('div');
@@ -310,7 +311,7 @@
             const newItems = tempDiv.querySelectorAll('.grid-item');
             newItems.forEach(item => container.appendChild(item));
 
-            container.setAttribute('data-loaded', loaded + 30);
+            container.setAttribute('data-loaded', loaded + 50);
             loading = false;
         }
 
@@ -320,6 +321,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

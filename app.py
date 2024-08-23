@@ -20,13 +20,12 @@ class Game(BaseModel):
     Reviews: str
     Review_Count: str
 
-
 @app.get("/", response_model=list[Game])
-def get_discounted_games_default(request: Request):
+async def get_discounted_games(request: Request, n: int = 50, offset: int = 0):
     client_ip = request.client.host
     region = get_region_from_ip(client_ip)
     scraper = SteamStoreScraper(region=region)
-    games = scraper.ScrapeGames(n0Games=30)
+    games = scraper.ScrapeGames(n0Games=n, offset=offset)
     count = len(games)
     return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
 
@@ -38,13 +37,3 @@ def get_region_from_ip(ip):
     except Exception as e:
         print(f"Error fetching region: {e}")
         return "IN"
-
-@app.get("/{n}", response_model=list[Game])
-def get_discounted_games(request: Request, n: int):
-    scraper = SteamStoreScraper()
-    games = scraper.ScrapeGames(n0Games=n)
-    count = len(games)
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
-        return templates.TemplateResponse("index.html", {"request": request, "games": games}, media_type="text/html")
-    else:
-        return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
