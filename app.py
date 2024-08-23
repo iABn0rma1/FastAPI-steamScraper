@@ -1,3 +1,4 @@
+import requests
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -19,6 +20,15 @@ class Game(BaseModel):
     Reviews: str
     Review_Count: str
 
+def get_region_from_ip(ip):
+    try:
+        response = requests.get(f"http://ip-api.com/json/{ip}")
+        data = response.json()
+        return data.get("countryCode", "IN")
+    except Exception as e:
+        print(f"Error fetching region: {e}")
+        return "IN"
+
 @app.get("/", response_model=list[Game])
 def get_discounted_games_default(request: Request):
     scraper = SteamStoreScraper()
@@ -31,7 +41,6 @@ def get_discounted_games(request: Request, n: int):
     scraper = SteamStoreScraper()
     games = scraper.ScrapeGames(n0Games=n)
     count = len(games)
-    # When loading more games, only return the HTML for the new items
     if request.headers.get("x-requested-with") == "XMLHttpRequest":
         return templates.TemplateResponse("index.html", {"request": request, "games": games}, media_type="text/html")
     else:
