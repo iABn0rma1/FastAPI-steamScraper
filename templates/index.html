@@ -108,6 +108,9 @@
         .game-info p {
             margin: 0;
         }
+        .game-info p img {
+            vertical-align: top;
+        }
 
         .platform-icons img {
             width: 20px;
@@ -222,19 +225,23 @@
 
                     {% else %}
 
-                    {% if 'Positive' in game.Reviews %}
-                    <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png"
-                        alt="Positive">
-                    {% endif %}
-                    {% if 'Mixed' in game.Reviews %}
-                    <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_mixed.png" alt="Mixed">
-                    {% endif %}
-                    {% if 'Negative' in game.Reviews %}
-                    <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_negative.png"
-                        alt="Negative">
-                    <p>{{ game.Reviews }}</p>
-                    {% endif %}
-
+                    <p>
+                        {% if 'Positive' in game.Reviews %}
+                        <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png"
+                        alt="Positive"> 
+                        {% endif %}
+                        {% if 'Mixed' in game.Reviews %}
+                        <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_mixed.png" 
+                        alt="Mixed"> 
+                        {% endif %}
+                        {% if 'Negative' in game.Reviews %}
+                        <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_negative.png"
+                        alt="Negative"> 
+                        {% endif %}
+                        - 
+                        {{game.Reviews_Prcnt}}
+                    </p>
+                    
                     {% endif %}
                 </div>
 

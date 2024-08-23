@@ -29,6 +29,7 @@ class SteamStoreScraper:
             "discountPrcnt",
             "discount_price",
             "Reviews",
+            "Reviews_Prcnt",
             "Filter",
         ]
 
@@ -80,7 +81,7 @@ class SteamStoreScraper:
             sentiment = match.group(1) if match else None
             percentage = match.group(2) if match else None
 
-            reviews = f"{sentiment.strip()} - {percentage.strip()}" if sentiment and percentage else None
+            # reviews = f"{sentiment.strip()} - {percentage.strip()}" if sentiment and percentage else None
 
         except Exception as e:
             logging.error(f"Error extracting game info: {e}")
@@ -95,7 +96,8 @@ class SteamStoreScraper:
             original_price,
             discount_pct,
             discount_price,
-            reviews,
+            sentiment,
+            percentage,
         )
 
     def _scrape_page(self, url, filter, n0Games):
