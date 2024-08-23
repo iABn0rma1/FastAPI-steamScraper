@@ -24,8 +24,8 @@ class SteamStoreScraper:
     Note: Use `help(SteamStoreScraper.ScrapeGames)` for more information on tags.
     """
 
-    def __init__(self):
-        self.base_url = "https://store.steampowered.com/search/?supportedlang=english&"
+    def __init__(self, region="IN"):
+        self.base_url = "https://store.steampowered.com/search/?supportedlang=english&cc={self.region}&"
         self.cols = [
             "Name",
             "image_url",

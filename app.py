@@ -23,9 +23,9 @@ class Game(BaseModel):
 
 @app.get("/", response_model=list[Game])
 def get_discounted_games_default(request: Request):
-    client_ip = request.client.host  # Get the client's IP address
+    client_ip = request.client.host
     region = get_region_from_ip(client_ip)
-    scraper = SteamStoreScraper()
+    scraper = SteamStoreScraper(region=region)
     games = scraper.ScrapeGames(n0Games=30)
     count = len(games)
     return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
