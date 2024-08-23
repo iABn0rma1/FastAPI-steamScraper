@@ -20,6 +20,16 @@ class Game(BaseModel):
     Reviews: str
     Review_Count: str
 
+
+@app.get("/", response_model=list[Game])
+def get_discounted_games_default(request: Request):
+    client_ip = request.client.host  # Get the client's IP address
+    region = get_region_from_ip(client_ip)
+    scraper = SteamStoreScraper()
+    games = scraper.ScrapeGames(n0Games=30)
+    count = len(games)
+    return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
+
 def get_region_from_ip(ip):
     try:
         response = requests.get(f"http://ip-api.com/json/{ip}")
@@ -28,13 +38,6 @@ def get_region_from_ip(ip):
     except Exception as e:
         print(f"Error fetching region: {e}")
         return "IN"
-
-@app.get("/", response_model=list[Game])
-def get_discounted_games_default(request: Request):
-    scraper = SteamStoreScraper()
-    games = scraper.ScrapeGames(n0Games=30)
-    count = len(games)
-    return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
 
 @app.get("/{n}", response_model=list[Game])
 def get_discounted_games(request: Request, n: int):
