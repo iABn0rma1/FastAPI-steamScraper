@@ -25,7 +25,7 @@ class SteamStoreScraper:
     """
 
     def __init__(self, region="IN"):
-        self.base_url = "https://store.steampowered.com/search/?supportedlang=english&cc={self.region}&"
+        self.base_url = "https://store.steampowered.com/search/?supportedlang=english&cc=in&"
         self.cols = [
             "Name",
             "image_url",
