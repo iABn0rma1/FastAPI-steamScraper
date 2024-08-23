@@ -5,7 +5,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discounted Games - Steam Style</title>
-    <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
+    <!-- <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet"> -->
+    <style>
+        body {
+            background-color: #1b2838;
+            color: #c7d5e0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #9099a1;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 10vw;
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .grid-item {
+            background-color: #2a475e;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1);
+            transition: 1.5s;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.025);
+            box-shadow: 0 0 5px #BEEE11;
+            text-shadow: 0 0 1px #4c6b22;
+            transition: 1.5s;
+        }
+
+        .game-header {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .game-image {
+            width: 120px;
+            height: 45px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .game-title {
+            font-size: 1rem;
+            color: #BEEE11;
+            margin: 0;
+        }
+
+        .game-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .discount {
+            color: #BEEE11;
+            background-color: #4c6b22;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .prices {
+            text-align: right;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            color: #c7d5e0;
+            margin: 0;
+        }
+
+        .discounted-price {
+            font-size: 1.2rem;
+            color: #BEEE11;
+            margin: 0;
+            padding-top: 5px;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #4c6c8c;
+            margin: 10px 0;
+        }
+
+        .game-info p {
+            margin: 0;
+        }
+
+        .platform-icons img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .loading-animation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5vw;
+        }
+
+        .lds-hourglass,
+        .lds-hourglass:after {
+            box-sizing: border-box;
+        }
+
+        .lds-hourglass {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .lds-hourglass:after {
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            width: 0;
+            height: 0;
+            margin: 8px;
+            box-sizing: border-box;
+            border: 32px solid currentColor;
+            border-color: currentColor transparent currentColor transparent;
+            animation: lds-hourglass 1.2s infinite;
+        }
+
+        @keyframes lds-hourglass {
+            0% {
+                transform: rotate(0);
+                animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+            }
+
+            50% {
+                transform: rotate(900deg);
+                animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+
+            100% {
+                transform: rotate(1800deg);
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 30px;
+            display: none;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #2a475e;
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                padding: 0 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -14,63 +194,64 @@
     <div class="grid-container" id="games-container" data-loaded="30">
         {% for game in games %}
         <a href="{{ game.href }}">
-        <div class="grid-item">
-            <div class="game-header">
-                <img src="{{ game.image_url }}" alt="{{ game.Name }} image" class="game-image">
-                <h2 class="game-title">{{ game.Name }}</h2>
-            </div>
+            <div class="grid-item">
+                <div class="game-header">
+                    <img src="{{ game.image_url }}" alt="{{ game.Name }} image" class="game-image">
+                    <h2 class="game-title">{{ game.Name }}</h2>
+                </div>
 
-            <div class="game-info">
-                {% if game.Date == None %}
-                <p> </p>
-                {% else %}
-                <p>{{ game.Date }}</p>
-                {% endif %}
-
-                {% if game.Reviews == None %}
-                <p> </p>
-
-                {% else %}
-
-                {% if 'Positive' in game.Reviews %}
-                <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png"
-                    alt="Positive">
-                {% endif %}
-                {% if 'Mixed' in game.Reviews %}
-                <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_mixed.png" alt="Mixed">
-                {% endif %}
-                {% if 'Negative' in game.Reviews %}
-                <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_negative.png"
-                    alt="Negative">
-                <p>{{ game.Reviews }}</p>
-                {% endif %}
-
-                {% endif %}
-            </div>
-
-            <div class="game-pricing">
-                <div class="platform-icons">
-                    {% if 'win' in game.Platforms %}
-                    <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_win.png?v=3"
-                        alt="Windows">
+                <div class="game-info">
+                    {% if game.Date == None %}
+                    <p> </p>
+                    {% else %}
+                    <p>{{ game.Date }}</p>
                     {% endif %}
-                    {% if 'linux' in game.Platforms %}
-                    <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_linux.png"
-                        alt="Linux">
+
+                    {% if game.Reviews == None %}
+                    <p> </p>
+
+                    {% else %}
+
+                    {% if 'Positive' in game.Reviews %}
+                    <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png"
+                        alt="Positive">
                     {% endif %}
-                    {% if 'mac' in game.Platforms %}
-                    <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_mac.png" alt="MacOS">
+                    {% if 'Mixed' in game.Reviews %}
+                    <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_mixed.png" alt="Mixed">
+                    {% endif %}
+                    {% if 'Negative' in game.Reviews %}
+                    <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_negative.png"
+                        alt="Negative">
+                    <p>{{ game.Reviews }}</p>
+                    {% endif %}
+
                     {% endif %}
                 </div>
-                <div class="discount">
-                    {{ game.discountPrcnt }}
-                </div>
-                <div class="prices">
-                    <p class="original-price">{{ game.Original_Price }}</p>
-                    <p class="discounted-price">{{ game.discount_price }}</p>
+
+                <div class="game-pricing">
+                    <div class="platform-icons">
+                        {% if 'win' in game.Platforms %}
+                        <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_win.png?v=3"
+                            alt="Windows">
+                        {% endif %}
+                        {% if 'linux' in game.Platforms %}
+                        <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_linux.png"
+                            alt="Linux">
+                        {% endif %}
+                        {% if 'mac' in game.Platforms %}
+                        <img src="https://store.akamai.steamstatic.com/public/images/v6/icon_platform_mac.png"
+                            alt="MacOS">
+                        {% endif %}
+                    </div>
+                    <div class="discount">
+                        {{ game.discountPrcnt }}
+                    </div>
+                    <div class="prices">
+                        <p class="original-price">{{ game.Original_Price }}</p>
+                        <p class="discounted-price">{{ game.discount_price }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
         </a>
         {% endfor %}
     </div>
@@ -78,6 +259,28 @@
     <div class="loading-animation">
         <div class="lds-hourglass"></div>
     </div>
+
+    <img id="scrollToTopBtn" class="scroll-to-top" src="https://img.icons8.com/ios-glyphs/30/circled-up-2.png"
+        alt="circled-up-2" />
+
+    <script>
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show the button after scrolling down 300px
+                scrollToTopBtn.style.display = 'block';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 
     <script>
         let loading = false;
