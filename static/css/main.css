@@ -153,8 +153,6 @@ a {
     }
 }
 
-
-
 @media (max-width: 480px) {
     .grid-container {
         padding: 0 15px;

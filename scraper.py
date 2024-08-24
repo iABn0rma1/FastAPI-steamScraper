@@ -76,10 +76,17 @@ class SteamStoreScraper:
 
             review_summary = game.find("span", {"class": "search_review_summary"})
             reviews_html = review_summary["data-tooltip-html"] if review_summary else None
-            pattern = r"(.+)<br>(\d+%)\s+of\s+the\s+([\d,]+)\s+user reviews.*"
-            match = re.match(pattern, reviews_html)
-            sentiment = match.group(1) if match else None
-            percentage = match.group(2) if match else None
+            
+            if reviews_html:
+                pattern = r"(.+)<br>(\d+%)\s+of\s+the\s+([\d,]+)\s+user reviews.*"
+                match = re.match(pattern, reviews_html)
+                sentiment = match.group(1) if match else None
+                percentage = match.group(2) if match else None
+                reviews = f"{sentiment.strip()} - {percentage.strip()}" if sentiment and percentage else None
+                logging.debug(f"Extracted reviews: {reviews}")
+            else:
+                sentiment = None
+                percentage = None
 
             # reviews = f"{sentiment.strip()} - {percentage.strip()}" if sentiment and percentage else None
 
@@ -137,20 +144,22 @@ class SteamStoreScraper:
         
         return all_game_info
 
-    def ScrapeGames(self, n0Games=100, offset=0):
+    def ScrapeGames(self, n0Games=100, offset=0, category="discounts"):
         all_data = []
-        filters = "specials=1"
         
-        while len(all_data) < n0Games:
-            url = f"{self.base_url}{filters}&start={offset}"
-            filter_data = self._scrape_page(url, filters, n0Games - len(all_data))
-            all_data.extend(filter_data)
-            
-            offset += len(filter_data)
-            if not filter_data:
-                break
-            
-            time.sleep(1)  # delay between requests
+        if category == "free":
+            filters = "maxprice=free"
+        elif category == "upcoming":
+            filters = "filter=comingsoon"
+        elif category == "top_sellers":
+            filters = "filter=topsellers"
+        else:
+            filters = "specials=1"
+
+        url = f"{self.base_url}{filters}&start={offset}"
+
+        filter_data = self._scrape_page(url, filters, n0Games)
+        all_data.extend(filter_data)
 
         data = {col: [] for col in self.cols}
         for row in all_data:

@@ -25,7 +25,34 @@ async def get_discounted_games(request: Request, n: int = 50, offset: int = 0):
     client_ip = request.client.host
     region = get_region_from_ip(client_ip)
     scraper = SteamStoreScraper(region=region)
-    games = scraper.ScrapeGames(n0Games=n, offset=offset)
+    games = scraper.ScrapeGames(n0Games=n, offset=offset, category="discounts")
+    count = len(games)
+    return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
+
+@app.get("/free-games", response_model=list[Game])
+async def get_free_games(request: Request, n: int = 50, offset: int = 0):
+    client_ip = request.client.host
+    region = get_region_from_ip(client_ip)
+    scraper = SteamStoreScraper(region=region)
+    games = scraper.ScrapeGames(n0Games=n, offset=offset, category="free")
+    count = len(games)
+    return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
+
+@app.get("/upcoming", response_model=list[Game])
+async def get_upcoming_games(request: Request, n: int = 50, offset: int = 0):
+    client_ip = request.client.host
+    region = get_region_from_ip(client_ip)
+    scraper = SteamStoreScraper(region=region)
+    games = scraper.ScrapeGames(n0Games=n, offset=offset, category="upcoming")
+    count = len(games)
+    return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
+
+@app.get("/top-sellers", response_model=list[Game])
+async def get_top_sellers(request: Request, n: int = 50, offset: int = 0):
+    client_ip = request.client.host
+    region = get_region_from_ip(client_ip)
+    scraper = SteamStoreScraper(region=region)
+    games = scraper.ScrapeGames(n0Games=n, offset=offset, category="top_sellers")
     count = len(games)
     return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
 
