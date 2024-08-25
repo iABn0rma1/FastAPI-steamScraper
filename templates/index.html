@@ -124,7 +124,7 @@
         .loading-animation {
             display: flex;
             justify-content: center;
-            margin-bottom: 5vw;
+            margin: 3vw 0 5vw 0;
         }
 
         .lds-hourglass,
@@ -245,6 +245,103 @@
             border-radius: 3px;
         }
 
+        .epiContainer {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .epiContainer h1 {
+            padding: 3.5vw 0 2vw;
+        }
+
+        .epic-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2vw;
+            padding: 0 10vw;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .epic {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            transform: scale(1);
+            transition: 1.5s;
+        }
+
+        .epic:hover {
+            transform: scale(1.025);
+            box-shadow: 0 0 5px #BEEE11;
+            text-shadow: 0 0 1px #4c6b22;
+            transition: 1.5s;
+        }
+
+        .epic-game {
+            position: relative;
+            width: 100%;
+            margin: auto;
+            padding-bottom: 30px;
+        }
+
+        .epic-game img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 2 / 3;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: block;
+        }
+
+        .epicNow,
+        .epicSoon {
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            padding: 5px 0;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 0.69rem;
+            text-align: center;
+            color: #FFFFFF;
+            background-color: #000000;
+        }
+
+        .epicNow {
+            background-color: #26BBFF;
+            color: #000000;
+        }
+
+        .epic-data {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 30px 20px 20px 20px;
+            /* background-color: #2a475e; */
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .epic .epic-data .date-time {
+            color: #FFFFFFA6 !important;
+        }
+
+        .epic-data p {
+            font-size: 1rem;
+            color: #FFFFFF;
+            height: 40px;
+            margin: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .epic-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
         @media (max-width: 800px) {
             .navbar {
                 padding: 3vw 15vw;
@@ -347,7 +444,7 @@
         </div>
         <div class="navbar-links">
             <ul class="nav-list">
-                <a href="/" class="filter-link" data-filter="">Discounts</a>
+                <a href="/discounts" class="filter-link" data-filter="discounts">Discounts</a>
                 <a href="/freegames" class="filter-link" data-filter="free-games">Free</a>
                 <a href="/upcoming" class="filter-link" data-filter="upcoming">Upcoming</a>
                 <a href="/top-sellers" class="filter-link" data-filter="top-sellers">Top Sellers</a>
@@ -361,7 +458,7 @@
         </div>
     </nav>
 
-    <h1 id="page-heading">Discounted Games</h1>
+    <h1 id="page-heading">Free 2 Keep</h1>
 
     <div class="grid-container" id="games-container" data-loaded="50">
         {% for game in games %}
@@ -430,6 +527,33 @@
             </a>
         </div>
         {% endfor %}
+
+    </div>
+
+    <div class="epiContainer" id="epic-games">
+        {% if epicGames != None %}
+        <h1>Free Epic Games</h1>
+        <div class="epic-grid">
+            {% for epicGame in epicGames %}
+            <div class="epic">
+                <a href="{{epicGame.store_link}}">
+                    <div class="epic-game">
+                        <img src="{{epicGame.logo_link}}" alt="{{epicGame.game_name}}">
+                        {% if 'Free' in epicGame.start_date %}
+                        <p class="epicNow">Free Now</p>
+                        {% else %}
+                        <p class="epicSoon">Coming Soon</p>
+                        {% endif %}
+                    </div>
+                    <div class="epic-data">
+                        <p> {{epicGame.game_name}} </p>
+                        <p class="date-time"> {{epicGame.start_date}} - {{epicGame.end_date}}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 
     <div id="loading" class="loading-animation">
@@ -480,6 +604,10 @@
             if (filter) {
                 url = `/${filter}?n=50&offset=${loaded}`;
             }
+            else {
+                var epic = document.getElementsByClassName("epiContainer");
+                epic.style.display = "flex";
+            }
 
             const response = await fetch(url);
             const text = await response.text();
@@ -496,18 +624,34 @@
 
         function updateHeading(filter) {
             const heading = document.getElementById('page-heading');
+            var epicGames = document.getElementById("epic-games");
             switch (filter) {
                 case 'free-games':
                     heading.textContent = 'Free Games';
+                    if (epicGames) {
+                        epicGames.style.display = "none";
+                    }
                     break;
                 case 'upcoming':
                     heading.textContent = 'Upcoming Releases';
+                    if (epicGames) {
+                        epicGames.style.display = "none";
+                    }
                     break;
                 case 'top-sellers':
                     heading.textContent = 'Top Sellers';
+                    if (epicGames) {
+                        epicGames.style.display = "none";
+                    }
+                    break;
+                case 'discounts':
+                    heading.textContent = 'Discounted Games';
+                    if (epicGames) {
+                        epicGames.style.display = "none";
+                    }
                     break;
                 default:
-                    heading.textContent = 'Discounted Games';
+                    heading.textContent = 'Free 2 Keep';
                     break;
             }
         }

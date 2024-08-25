@@ -3,6 +3,7 @@ import time
 import logging
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime, date
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -144,7 +145,7 @@ class SteamStoreScraper:
         
         return all_game_info
 
-    def ScrapeGames(self, n0Games=100, offset=0, category="discounts"):
+    def ScrapeGames(self, n0Games=100, offset=0, category="free-now"):
         all_data = []
         
         if category == "free":
@@ -153,8 +154,10 @@ class SteamStoreScraper:
             filters = "filter=comingsoon"
         elif category == "top_sellers":
             filters = "filter=topsellers"
-        else:
+        elif category == "discounts":
             filters = "specials=1"
+        else:
+            filters = "maxprice=free&specials=1"
 
         url = f"{self.base_url}{filters}&start={offset}"
 
@@ -175,3 +178,63 @@ class SteamStoreScraper:
             del game_data["Filter"]
             readable_data.append(game_data)
         return readable_data
+
+
+class EpicGamesScraper:
+    def __init__(self):
+        self.api_url = "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions"
+        self.games = []
+        self.processed_games = set()
+
+    def scrape_data(self):
+        response = requests.get(self.api_url)
+        data = response.json()
+
+        for game in data['data']['Catalog']['searchStore']['elements']:
+            if game.get('promotions') and game['promotions'].get('promotionalOffers'):
+                for offer in game['promotions']['promotionalOffers'][0]['promotionalOffers']:
+                    self.extract_offer_info(game, offer)
+            
+            if game.get('promotions') and game['promotions'].get('upcomingPromotionalOffers'):
+                for upcoming_offer in game['promotions']['upcomingPromotionalOffers']:
+                    for offer in upcoming_offer['promotionalOffers']:
+                        self.extract_offer_info(game, offer)
+
+        current_date = datetime.now()
+        for game in self.games:
+            start_date = datetime.strptime(game['start_date'], "%d %b %Y")
+            if start_date < current_date:
+                game['start_date'] = 'Free Now'
+
+        self.games.sort(key=lambda x: (x['start_date'] != 'Free Now', datetime.strptime(x['start_date'], "%d %b %Y") if x['start_date'] != 'Free Now' else datetime.min))
+
+        return self.games
+
+    def extract_offer_info(self, game, offer):
+        """Extract and store offer information for each game."""
+        game_name = game['title']
+        start_date = datetime.strptime(offer['startDate'], "%Y-%m-%dT%H:%M:%S.%fZ")
+        end_date = datetime.strptime(offer['endDate'], "%Y-%m-%dT%H:%M:%S.%fZ")
+        
+        start_date_formatted = start_date.strftime("%d %b %Y").lstrip('0').replace(' 0', ' ')
+        end_date_formatted = end_date.strftime("%d %b at %I:%M%p").lstrip('0').replace(' 0', ' ')
+        
+        offer_period = f"{start_date_formatted} to {end_date_formatted}"
+        store_link = f"https://www.epicgames.com/store/en-US/p/{game['productSlug']}"
+        logo_link = game['keyImages'][0]['url']
+
+        if game_name not in self.processed_games:
+            self.processed_games.add(game_name)
+            game_data = {
+                'game_name': game_name,
+                'start_date': start_date_formatted,
+                'end_date': end_date_formatted,
+                'offer_period': offer_period,
+                'store_link': store_link,
+                'date_written': date.today(),
+                'logo_link': logo_link
+            }
+            self.games.append(game_data)
+
+    def check_duplicate(self, game_name):
+        return game_name in self.processed_games

@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from scraper import SteamStoreScraper 
+from scraper import SteamStoreScraper, EpicGamesScraper
 
 app = FastAPI()
 
@@ -21,6 +21,17 @@ class Game(BaseModel):
     Review_Count: str
 
 @app.get("/", response_model=list[Game])
+async def get_discounted_games(request: Request, n: int = 50, offset: int = 0):
+    client_ip = request.client.host
+    region = get_region_from_ip(client_ip)
+    scraper = SteamStoreScraper(region=region)
+    games = scraper.ScrapeGames(n0Games=n, offset=offset, category="free-discounts")
+    scraper = EpicGamesScraper()
+    epicGames = scraper.scrape_data()
+    count = len(games)
+    return templates.TemplateResponse("index.html", {"request": request, "games": games, "epicGames":epicGames, "count": count})
+
+@app.get("/discounts", response_model=list[Game])
 async def get_discounted_games(request: Request, n: int = 50, offset: int = 0):
     client_ip = request.client.host
     region = get_region_from_ip(client_ip)
