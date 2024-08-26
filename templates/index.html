@@ -9,7 +9,406 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon-16x16.png">
     <title>Epic Steam Offers</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <!-- <link rel="stylesheet" href="/static/css/styles.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #c7d5e0;
+            background-color: #1b2838;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 3vw 0;
+            color: #9099a1;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 10vw;
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .grid-item {
+            background-color: #2a475e;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1);
+            transition: 1.5s;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.025);
+            box-shadow: 0 0 5px #BEEE11;
+            text-shadow: 0 0 1px #4c6b22;
+            transition: 1.5s;
+        }
+
+        .game-header {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .game-image {
+            width: 120px;
+            height: 45px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .game-title {
+            font-size: 1rem;
+            color: #BEEE11;
+            margin: 0;
+        }
+
+        .game-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .discount {
+            color: #BEEE11;
+            background-color: #4c6b22;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .prices {
+            text-align: right;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            color: #c7d5e0;
+            margin: 0;
+        }
+
+        .discounted-price {
+            font-size: 1.2rem;
+            color: #BEEE11;
+            margin: 0;
+            padding-top: 5px;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #4c6c8c;
+            margin: 10px 0;
+        }
+
+        .game-info p {
+            margin: 0;
+        }
+
+        .game-info p img {
+            vertical-align: top;
+        }
+
+        .platform-icons img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        #loading {
+            display: none;
+            justify-content: center;
+            margin: 3vw 0 5vw 0;
+        }
+
+        .lds-hourglass,
+        .lds-hourglass:after {
+            box-sizing: border-box;
+        }
+
+        .lds-hourglass {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .lds-hourglass:after {
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            width: 0;
+            height: 0;
+            margin: 8px;
+            box-sizing: border-box;
+            border: 32px solid currentColor;
+            border-color: currentColor transparent currentColor transparent;
+            animation: lds-hourglass 1.2s infinite;
+        }
+
+        @keyframes lds-hourglass {
+            0% {
+                transform: rotate(0);
+                animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+            }
+
+            50% {
+                transform: rotate(900deg);
+                animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+
+            100% {
+                transform: rotate(1800deg);
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 30px;
+            display: none;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #2a475e;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #171d25;
+            color: #dcdedf;
+            padding: 3vw 10vw;
+            position: relative;
+        }
+
+        .navbar-brand .logo {
+            height: 40px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 5vw;
+        }
+
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-list li {
+            margin: 0;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: #dcdedf;
+        }
+
+        .login-btn {
+            background-color: #5c7e10;
+            color: #e5e4dc;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #dcdedf;
+            border-radius: 3px;
+        }
+
+        .epiContainer {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .epiContainer h1 {
+            padding: 3.5vw 0 2vw;
+        }
+
+        .epic-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2vw;
+            padding: 0 10vw 5vw;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .epic {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            transform: scale(1);
+            transition: 1.5s;
+        }
+
+        .epic:hover {
+            transform: scale(1.025);
+            box-shadow: 0 0 5px #BEEE11;
+            text-shadow: 0 0 1px #4c6b22;
+            transition: 1.5s;
+        }
+
+        .epic-game {
+            position: relative;
+            width: 100%;
+            margin: auto;
+        }
+
+        .epic-game img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 2 / 3;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: block;
+        }
+
+        .epicNow,
+        .epicSoon {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            padding: 5px 0;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 0.69rem;
+            text-align: center;
+            color: #FFFFFF;
+            background-color: #000000;
+        }
+
+        .epicNow {
+            background-color: #26BBFF;
+            color: #000000;
+        }
+
+        .epic-data {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 30px 20px 20px 20px;
+            /* background-color: #2a475e; */
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .epic .epic-data .date-time {
+            color: #FFFFFFA6 !important;
+        }
+
+        .epic-data p {
+            display: inline;
+            align-content: center;
+            font-size: 1rem;
+            color: #FFFFFF;
+            height: 40px;
+            margin: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .epic-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 3vw 15vw;
+            }
+
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: #171d25;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .navbar-links.active {
+                display: flex;
+                z-index: 1;
+                gap: 50px;
+                padding: 30px 0;
+                text-align: center;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .nav-list a {
+                padding: 10px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .grid-container {
+                padding: 0 15vw;
+            }
+
+            .scroll-to-top {
+                right: 15px;
+            }
+
+            .epic-grid {
+                gap: 5vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 3vw 30px;
+            }
+
+            .grid-container {
+                padding: 0 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -235,27 +634,32 @@
         function updateHeading(filter) {
             const heading = document.getElementById('page-heading');
             var epicGames = document.getElementById("epic-games");
+            var loading = document.getElementById("loading");
             switch (filter) {
                 case 'free-games':
                     heading.textContent = 'Free Games';
+                    loading.style.display = "flex";
                     if (epicGames) {
                         epicGames.style.display = "none";
                     }
                     break;
                 case 'upcoming':
                     heading.textContent = 'Upcoming Releases';
+                    loading.style.display = "flex";
                     if (epicGames) {
                         epicGames.style.display = "none";
                     }
                     break;
                 case 'top-sellers':
                     heading.textContent = 'Top Sellers';
+                    loading.style.display = "flex";
                     if (epicGames) {
                         epicGames.style.display = "none";
                     }
                     break;
                 case 'discounts':
                     heading.textContent = 'Discounted Games';
+                    loading.style.display = "flex";
                     if (epicGames) {
                         epicGames.style.display = "none";
                     }
