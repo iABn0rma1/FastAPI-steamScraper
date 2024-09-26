@@ -1,0 +1,1853 @@
+<html class="responsive" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#171a21">
+    <title>About</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #c7d5e0;
+            background-color: #1b2838;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 3vw 0;
+            color: #9099a1;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 10vw;
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .grid-item {
+            background-color: #2a475e;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1);
+            transition: 1.5s;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.025);
+            box-shadow: 0 0 5px #BEEE11;
+            text-shadow: 0 0 1px #4c6b22;
+            transition: 1.5s;
+        }
+
+        .game-header {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .game-image {
+            width: 120px;
+            height: 45px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .game-title {
+            font-size: 1rem;
+            color: #BEEE11;
+            margin: 0;
+        }
+
+        .game-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .discount {
+            color: #BEEE11;
+            background-color: #4c6b22;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .prices {
+            text-align: right;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            color: #c7d5e0;
+            margin: 0;
+        }
+
+        .discounted-price {
+            font-size: 1.2rem;
+            color: #BEEE11;
+            margin: 0;
+            padding-top: 5px;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #4c6c8c;
+            margin: 10px 0;
+        }
+
+        .game-info p {
+            margin: 0;
+        }
+
+        .game-info p img {
+            vertical-align: top;
+        }
+
+        .platform-icons img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        #loading {
+            display: none;
+            justify-content: center;
+            margin: 3vw 0 5vw 0;
+        }
+
+        .lds-hourglass,
+        .lds-hourglass:after {
+            box-sizing: border-box;
+        }
+
+        .lds-hourglass {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .lds-hourglass:after {
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            width: 0;
+            height: 0;
+            margin: 8px;
+            box-sizing: border-box;
+            border: 32px solid currentColor;
+            border-color: currentColor transparent currentColor transparent;
+            animation: lds-hourglass 1.2s infinite;
+        }
+
+        @keyframes lds-hourglass {
+            0% {
+                transform: rotate(0);
+                animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+            }
+
+            50% {
+                transform: rotate(900deg);
+                animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+
+            100% {
+                transform: rotate(1800deg);
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 30px;
+            display: none;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
+        }
+
+        .scroll-to-top:hover {
+            background-color: #2a475e;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #171d25;
+            color: #dcdedf;
+            padding: 3vw 10vw;
+            position: relative;
+        }
+
+        .navbar-brand .logo {
+            height: 40px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 5vw;
+        }
+
+        .nav-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-list li {
+            margin: 0;
+        }
+
+        .nav-list a {
+            font-size: 0.875rem;
+            text-decoration: none;
+            color: #dcdedf;
+        }
+
+        .login-btn {
+            background-color: #5c7e10;
+            color: #e5e4dc;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #dcdedf;
+            border-radius: 3px;
+        }
+
+        .epiContainer {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .epiContainer h1 {
+            padding: 3.5vw 0 2vw;
+        }
+
+        .epic-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2vw;
+            padding: 0 10vw 5vw;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .epic {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            transform: scale(1);
+            transition: 1.5s;
+        }
+
+        .epic:hover {
+            transform: scale(1.025);
+            box-shadow: 0 0 5px #BEEE11;
+            text-shadow: 0 0 1px #4c6b22;
+            transition: 1.5s;
+        }
+
+        .epic-game {
+            position: relative;
+            width: 100%;
+            margin: auto;
+        }
+
+        .epic-game img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 2 / 3;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: block;
+        }
+
+        .epicNow,
+        .epicSoon {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            padding: 5px 0;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            font-size: 0.69rem;
+            text-align: center;
+            color: #FFFFFF;
+            background-color: #000000;
+        }
+
+        .epicNow {
+            background-color: #26BBFF;
+            color: #000000;
+        }
+
+        .epic-data {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 30px 20px 20px 20px;
+            /* background-color: #2a475e; */
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .epic .epic-data .date-time {
+            color: #FFFFFFA6 !important;
+        }
+
+        .epic-data p {
+            display: inline;
+            align-content: center;
+            font-size: 1rem;
+            color: #FFFFFF;
+            height: 40px;
+            margin: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .epic-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 800px) {
+            .navbar {
+                padding: 3vw 15vw;
+            }
+
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: #171d25;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .navbar-links.active {
+                display: flex;
+                z-index: 1;
+                gap: 50px;
+                padding: 30px 0;
+                text-align: center;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .nav-list a {
+                padding: 10px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .grid-container {
+                padding: 0 15vw;
+            }
+
+            .scroll-to-top {
+                right: 15px;
+            }
+
+            .epic-grid {
+                gap: 5vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 3vw 30px;
+            }
+
+            .grid-container {
+                padding: 0 30px;
+            }
+        }
+
+        .user_reviews_container {
+            min-height: 50px !important;
+        }
+
+        .similarapp.ds_no_flags.app_impression_tracked img {
+            aspect-ratio: 6/2;
+        }
+
+        img.game_header_image_full {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .apphub_HeaderStandardTop {
+            padding-top: 20px !important;
+        }
+
+        .highlight_strip_item img {
+            width: 116px !important;
+            height: 65px !important;
+        }
+
+        .newmodal_content {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .LoadingWrapper {
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        #scrollBtn {
+            background-color: rgba(103, 193, 245, 0.1);
+            color: #67c1f5;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            margin: 25px;
+            padding-bottom: 5px;
+            outline: none;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            transition: background-color 0.3s;
+        }
+
+        #scrollBtn:hover {
+            background-color: #61B6E7;
+            color: #fff;
+        }
+    </style>
+
+    <link href="https://store.akamai.steamstatic.com/public/shared/css/motiva_sans.css?v=Rc2hpzg2Ex3T&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link href="https://store.akamai.steamstatic.com/public/shared/css/shared_global.css?v=cNFo_SNYcn7k&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link href="https://store.akamai.steamstatic.com/public/shared/css/buttons.css?v=CrrkDubPqLcq&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link href="https://store.akamai.steamstatic.com/public/css/v6/store.css?v=Rzrd3uCdRpEQ&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link href="https://store.akamai.steamstatic.com/public/shared/css/user_reviews.css?v=HTzM1iGIPvco&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link
+        href="https://store.akamai.steamstatic.com/public/shared/css/store_game_shared.css?v=13Id-j1GOlnv&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link href="https://store.akamai.steamstatic.com/public/css/v6/game.css?v=DT7RcGx5_PL4&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link href="https://store.akamai.steamstatic.com/public/css/v6/recommended.css?v=OQECwnXoVumu&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link
+        href="https://store.akamai.steamstatic.com/public/css/v6/user_reviews_rewards.css?v=5-HJZa1v4wFP&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link href="https://store.akamai.steamstatic.com/public/shared/css/apphub.css?v=Gp-ifAqVr5lr&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link
+        href="https://store.akamai.steamstatic.com/public/shared/css/ui-lightness/jquery-ui-1.7.2.custom.css?v=.23LkAmA0IgZV"
+        rel="stylesheet" type="text/css">
+    <link href="https://store.akamai.steamstatic.com/public/css/v6/game_mob.css?v=bFmKAm-CcoW2&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <link
+        href="https://store.akamai.steamstatic.com/public/shared/css/shared_responsive.css?v=e-GD37z7aOe7&amp;l=english"
+        rel="stylesheet" type="text/css">
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/jquery-1.8.3.min.js?v=.TZ2NKhB-nliU"></script>
+    <style type="text/css"></style>
+    <script type="text/javascript">$J = jQuery.noConflict();</script>
+    <script type="text/javascript">VALVE_PUBLIC_PATH = "https:\/\/store.akamai.steamstatic.com\/public\/";</script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/tooltip.js?v=.zYHOpI1L3Rt0"></script>
+
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/shared_global.js?v=REEGJU1hwkYl&amp;l=english"></script>
+
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/auth_refresh.js?v=WgUxSlKTb3W1&amp;l=english"></script>
+
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/javascript/main.js?v=kZi5rlQjsrCl&amp;l=english"></script>
+
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/javascript/dynamicstore.js?v=fz6Sv1tbS3ZE&amp;l=english"></script>
+
+    <script
+        type="text/javascript">Object.seal && [Object, Array, String, Number].map(function (builtin) { Object.seal(builtin.prototype); });</script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function (event) {
+            $J.data(document, 'x_readytime', new Date().getTime());
+            $J.data(document, 'x_oldref', GetNavCookie());
+            SetupTooltips({ tooltipCSSClass: 'store_tooltip' });
+        });
+    </script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/javascript/gamehighlightplayer.js?v=lHwMcAFn2YIe&amp;l=english"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/user_reviews.js?v=LRs2cUK5D3j7&amp;l=english"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/dselect.js?v=sjouo3-33Gox&amp;l=english"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/javascript/app_tagging.js?v=RNngwPXUc1i7&amp;l=english"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/javascript/game.js?v=kW6pqOWhdlUE&amp;l=english"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/flot-0.8/jquery.flot.min.js?v=.-m414tR-pxn_"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/flot-0.8/jquery.flot.resize.min.js?v=.4PeWDSmdkiqV"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/flot-0.8/jquery.flot.time.min.js?v=.tcjKevZLo5Un"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/flot-0.8/jquery.flot.selection.min.js?v=._7pxnS3SCqO7"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/javascript/discoveryqueue.js?v=jySUvx1alqLL&amp;l=english"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/jquery-ui-1.9.2.js?v=.4YjdpcHj68MM"></script>
+    <script type="text/javascript"
+        src="https://store.akamai.steamstatic.com/public/shared/javascript/shared_responsive_adapter.js?v=pSvIAKtunfWg&amp;l=english"></script>
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="Description"
+        content="Kratos and Atreus embark on a mythic journey for answers before Ragnarök arrives – now on PC.">
+
+    <meta name="twitter:site" content="@steam">
+
+    <meta property="og:title" content="About Steam Scraper on FastAPI Developer">
+    <meta property="twitter:title" content="About Steam Scraper on FastAPI Developer">
+    <meta property="og:type" content="website">
+    <meta property="fb:app_id" content="105386699540688">
+    <meta property="og:site" content="Steam">
+    <meta property="og:url" content="https://fast-api-steam-scraper.vercel.app/">
+    <meta property="og:description"
+        content="Kratos and Atreus embark on a mythic journey for answers before Ragnarök arrives – now on PC.">
+    <meta property="twitter:description"
+        content="Kratos and Atreus embark on a mythic journey for answers before Ragnarök arrives – now on PC.">
+
+    <link rel="canonical" href="https://fast-api-steam-scraper.vercel.app/">
+
+    <link rel="image_src"
+        href="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2322010/capsule_616x353.jpg?t=1726774417">
+    <meta property="og:image"
+        content="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2322010/capsule_616x353.jpg?t=1726774417">
+    <meta name="twitter:image"
+        content="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2322010/capsule_616x353.jpg?t=1726774417">
+
+    <link rel="stylesheet" type="text/css"
+        href="https://store.akamai.steamstatic.com/public/css/applications/store/greenenvelope.css?contenthash=f4e354d7929f8cfe5b96">
+    <link rel="stylesheet" type="text/css"
+        href="https://store.akamai.steamstatic.com/public/css/applications/store/7368.css?contenthash=a25cdd104276a8dc3c6f">
+    <link rel="stylesheet" type="text/css"
+        href="https://store.akamai.steamstatic.com/public/css/applications/store/chunk~1eac2f983.css?contenthash=9e2771cb808c460184cf">
+    <link rel="stylesheet" type="text/css"
+        href="https://store.akamai.steamstatic.com/public/css/applications/store/chunk~549106c78.css?contenthash=02a0e7f86529ade477f4">
+    <link rel="stylesheet" type="text/css"
+        href="https://store.akamai.steamstatic.com/public/css/applications/store/chunk~618b6ee4b.css?contenthash=9282588272029fe0dd58">
+    <link rel="stylesheet" type="text/css"
+        href="https://store.akamai.steamstatic.com/public/css/applications/store/events.css?contenthash=0d6d9129e2f70da9e4c7">
+    <link rel="stylesheet" type="text/css"
+        href="https://store.akamai.steamstatic.com/public/css/applications/store/reviewaward.css?contenthash=2216da1d3aca1c1c28f3">
+    <link rel="stylesheet" type="text/css"
+        href="https://store.akamai.steamstatic.com/public/css/applications/store/deckverified.css?contenthash=a57373470d4b21ce9e72">
+</head>
+
+<body class="v6 app game_bg application responsive_page ">
+
+
+    <div class="responsive_page_frame with_header">
+        <div role="navigation" class="responsive_page_menu_ctn mainmenu" aria-label="Mobile Menu">
+            <div class="responsive_page_menu" id="responsive_page_menu">
+                <div class="mainmenu_contents">
+                    <div class="mainmenu_contents_items">
+                        <!-- profile area -->
+
+                        <div class="menuitem notifications_item">
+                            Notifications <div class="notification_count_total_ctn no_notifications">
+                                <span class="notification_envelope"></span>
+                                <span class="notification_count">0</span>
+                            </div>
+                        </div>
+                        <div class="notification_submenu" style="display: none;" data-submenuid="notifications">
+                            <div data-featuretarget="green-envelope-responsive">
+                                <div class="_1Uh_y1atXoMOUxGyUQK8vC _2q-LyEsEZpxFZBbqO07xgp"><a
+                                        href="https://steamcommunity.com/profiles/76561198868529724/notifications">
+                                        <div class="_1OH7OiFxIJo5Y7Z4Z6U6iO">View All</div>
+                                    </a></div>
+                            </div>
+                        </div>
+                        <a class="menuitem supernav supernav_active"
+                            href="https://store.steampowered.com/?snr=1_5_9__global-responsive-menu"
+                            data-tooltip-type="selector" data-tooltip-content=".submenu_Store">
+                            Store </a>
+                        <div class="submenu_Store" style="display: none;" data-submenuid="Store">
+                            <a class="submenuitem"
+                                href="https://store.steampowered.com/?snr=1_5_9__global-responsive-menu">
+                                Home </a>
+                            <a class="submenuitem"
+                                href="https://store.steampowered.com/explore/?snr=1_5_9__global-responsive-menu">
+                                Discovery Queue </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/my/wishlist/">
+                                Wishlist </a>
+                            <a class="submenuitem"
+                                href="https://store.steampowered.com/points/shop/?snr=1_5_9__global-responsive-menu">
+                                Points Shop </a>
+                            <a class="submenuitem"
+                                href="https://store.steampowered.com/news/?snr=1_5_9__global-responsive-menu">
+                                News </a>
+                            <a class="submenuitem"
+                                href="https://store.steampowered.com/stats/?snr=1_5_9__global-responsive-menu">
+                                Stats </a>
+                            <a class="submenuitem"
+                                href="https://store.steampowered.com/about/?snr=1_5_9__global-responsive-menu">
+                                About </a>
+                        </div>
+                        <a class="menuitem supernav" href="https://steamcommunity.com/" data-tooltip-type="selector"
+                            data-tooltip-content=".submenu_Community">
+                            Community </a>
+                        <div class="submenu_Community" style="display: none;" data-submenuid="Community">
+                            <a class="submenuitem" href="https://steamcommunity.com/">
+                                Home </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/discussions/">
+                                Discussions </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/workshop/">
+                                Workshop </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/market/">
+                                Market </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/?subsection=broadcasts">
+                                Broadcasts </a>
+                        </div>
+                        <a class="menuitem supernav username" href="https://steamcommunity.com/my/"
+                            data-tooltip-type="selector" data-tooltip-content=".submenu_Profile">
+                            You &amp; Friends </a>
+                        <div class="submenu_Profile" style="display: none;" data-submenuid="Profile">
+                            <a class="submenuitem" href="https://steamcommunity.com/my/home/">
+                                Activity </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/my/">
+                                Profile </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/my/friends/">
+                                Friends </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/my/games/">
+                                Games </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/my/groups/">
+                                Groups </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/my/screenshots/">
+                                Content </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/my/badges/">
+                                Badges </a>
+                            <a class="submenuitem" href="https://steamcommunity.com/my/inventory/">
+                                Inventory </a>
+                            <a class="submenuitem"
+                                href="https://store.steampowered.com/yearinreview/?snr=1_5_9__global-responsive-menu">
+                                Year In Review </a>
+                        </div>
+                        <a class="menuitem " href="https://steamcommunity.com/chat/">
+                            Chat </a>
+                        <a class="menuitem " href="https://help.steampowered.com/en/">
+                            Support </a>
+
+                        <div class="minor_menu_items">
+                            <a class="menuitem"
+                                href="https://store.steampowered.com/account/?snr=1_5_9__global-responsive-menu">Account
+                                details</a>
+                            <a class="menuitem"
+                                href="https://store.steampowered.com/account/preferences?snr=1_5_9__global-responsive-menu">Store
+                                preferences</a>
+                            <div class="menuitem change_language_action">
+                                Change language </div>
+                            <div class="menuitem" onclick="Logout();">Change user</div>
+                            <a class="menuitem" href="https://store.steampowered.com/mobile" target="_blank"
+                                rel="noreferrer">Get the Steam Mobile App</a>
+                            <div class="menuitem" onclick="Responsive_RequestDesktopView();">
+                                View desktop website </div>
+                        </div>
+                    </div>
+                    <div class="mainmenu_footer_spacer  "></div>
+                    <div class="mainmenu_footer">
+                        <div class="mainmenu_footer_logo">
+                            <img
+                                src="https://store.akamai.steamstatic.com/public/shared/images/responsive/logo_valve_footer.png">
+                        </div>
+                        © Valve Corporation. All rights reserved. All trademarks are property of their respective owners
+                        in the US and other countries. <span class="mainmenu_valve_links">
+                            <a href="https://store.steampowered.com/privacy_agreement/?snr=1_5_9__global-responsive-menu"
+                                target="_blank">Privacy Policy</a>
+                            &nbsp;| &nbsp;<a href="http://www.valvesoftware.com/legal.htm" target="_blank">Legal</a>
+                            &nbsp;| &nbsp;<a
+                                href="https://store.steampowered.com/subscriber_agreement/?snr=1_5_9__global-responsive-menu"
+                                target="_blank">Steam Subscriber Agreement</a>
+                            &nbsp;| &nbsp;<a
+                                href="https://store.steampowered.com/steam_refunds/?snr=1_5_9__global-responsive-menu"
+                                target="_blank">Refunds</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="responsive_local_menu_tab"></div>
+
+        <div class="responsive_page_menu_ctn localmenu">
+            <div class="responsive_page_menu" id="responsive_page_local_menu"
+                data-panel="{&quot;onOptionsActionDescription&quot;:&quot;Filter&quot;,&quot;onOptionsButton&quot;:&quot;Responsive_ToggleLocalMenu()&quot;,&quot;onCancelButton&quot;:&quot;Responsive_ToggleLocalMenu()&quot;}">
+                <div class="localmenu_content"
+                    data-panel="{&quot;maintainY&quot;:true,&quot;bFocusRingRoot&quot;:true,&quot;flow-children&quot;:&quot;column&quot;}">
+                </div>
+            </div>
+        </div>
+
+        <div class="responsive_page_content_overlay">
+
+        </div>
+
+        <div class="responsive_fixonscroll_ctn nonresponsive_hidden ">
+        </div>
+
+        <div class="responsive_page_content">
+
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a href="/">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                            id="Layer_1" x="0px" y="0px" width="175px" height="44px" viewBox="0 0 355.666 89.333"
+                            enable-background="new 0 0 355.666 89.333" xml:space="preserve">
+                            <g>
+                                <path fill="#C5C3C0"
+                                    d="M44.238,0.601C21,0.601,1.963,18.519,0.154,41.29l23.71,9.803c2.009-1.374,4.436-2.179,7.047-2.179   c0.234,0,0.467,0.008,0.698,0.021l10.544-15.283c0-0.073-0.001-0.144-0.001-0.216c0-9.199,7.483-16.683,16.683-16.683   c9.199,0,16.682,7.484,16.682,16.683c0,9.199-7.483,16.684-16.682,16.684c-0.127,0-0.253-0.003-0.379-0.006l-15.038,10.73   c0.008,0.195,0.015,0.394,0.015,0.592c0,6.906-5.617,12.522-12.522,12.522c-6.061,0-11.129-4.326-12.277-10.055L1.678,56.893   c5.25,18.568,22.309,32.181,42.56,32.181c24.432,0,44.237-19.806,44.237-44.235C88.475,20.406,68.669,0.601,44.238,0.601">
+                                </path>
+                                <path fill="#C5C3C0"
+                                    d="M27.875,67.723l-5.434-2.245c0.963,2.005,2.629,3.684,4.841,4.606c4.782,1.992,10.295-0.277,12.288-5.063   c0.965-2.314,0.971-4.869,0.014-7.189c-0.955-2.321-2.757-4.131-5.074-5.097c-2.299-0.957-4.762-0.922-6.926-0.105l5.613,2.321   c3.527,1.47,5.195,5.52,3.725,9.047C35.455,67.526,31.402,69.194,27.875,67.723">
+                                </path>
+                                <path fill="#C5C3C0"
+                                    d="M69.95,33.436c0-6.129-4.986-11.116-11.116-11.116c-6.129,0-11.116,4.987-11.116,11.116   c0,6.13,4.987,11.115,11.116,11.115C64.964,44.55,69.95,39.565,69.95,33.436 M50.502,33.417c0-4.612,3.739-8.35,8.351-8.35   c4.612,0,8.351,3.738,8.351,8.35s-3.739,8.35-8.351,8.35C54.241,41.767,50.502,38.028,50.502,33.417">
+                                </path>
+                                <path fill="#C5C3C0"
+                                    d="M135.718,30.868l-2.964,5.21c-2.283-1.595-5.377-2.555-8.078-2.555c-3.087,0-4.997,1.278-4.997,3.567   c0,2.781,3.393,3.428,8.436,5.238c5.421,1.917,8.537,4.17,8.537,9.135c0,6.793-5.342,10.608-13.02,10.608   c-3.742,0-8.256-0.966-11.726-3.077l2.162-5.776c2.819,1.489,6.191,2.372,9.197,2.372c4.052,0,5.978-1.495,5.978-3.705   c0-2.529-2.937-3.289-7.678-4.859c-5.403-1.804-9.147-4.171-9.147-9.666c0-6.197,4.963-9.756,12.104-9.756   C129.499,27.604,133.499,29.181,135.718,30.868">
+                                </path>
+                                <polygon fill="#C5C3C0"
+                                    points="158.888,34.161 158.888,61.5 151.909,61.5 151.909,34.161 141.779,34.161 141.779,28.175    168.988,28.175 168.988,34.161  ">
+                                </polygon>
+                                <polygon fill="#C5C3C0"
+                                    points="183.7,34.143 183.7,41.652 197.056,41.652 197.056,47.638 183.7,47.638 183.7,55.459    199.196,55.459 199.196,61.5 176.723,61.5 176.723,28.175 199.196,28.175 199.196,34.143  ">
+                                </polygon>
+                                <path fill="#C5C3C0"
+                                    d="M214.773,55.03l-2.206,6.471h-7.316l12.495-33.325h7.025L237.619,61.5h-7.563l-2.254-6.471H214.773z    M221.219,36.125l-4.551,13.343h9.196L221.219,36.125z">
+                                </path>
+                                <polygon fill="#C5C3C0"
+                                    points="273.436,41.056 264.316,60.529 260.378,60.529 251.406,41.23 251.406,61.5 244.723,61.5    244.723,28.175 251.391,28.175 262.591,52.231 273.393,28.175 280.119,28.175 280.119,61.5 273.437,61.5  ">
+                                </polygon>
+                                <path fill="#C5C3C0"
+                                    d="M293.611,32.379c0,2.864-2.146,4.649-4.609,4.649c-2.472,0-4.623-1.785-4.623-4.649   c0-2.863,2.151-4.636,4.623-4.636C291.466,27.743,293.611,29.516,293.611,32.379 M285.154,32.379c0,2.396,1.726,3.901,3.848,3.901   c2.114,0,3.833-1.505,3.833-3.901c0-2.403-1.719-3.885-3.833-3.885C286.886,28.494,285.154,29.994,285.154,32.379 M289.066,30.01   c1.195,0,1.597,0.632,1.597,1.315c0,0.626-0.371,1.046-0.823,1.26l1.071,2.007h-0.877l-0.903-1.779H288.2v1.779h-0.73V30.01   H289.066z M288.207,32.142h0.814c0.527,0,0.838-0.331,0.838-0.747c0-0.42-0.223-0.69-0.84-0.69h-0.813V32.142z">
+                                </path>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+                <div class="navbar-links">
+                    <ul class="nav-list">
+                        <a href="/discounts" class="filter-link" data-filter="discounts">Discounts</a>
+                        <a href="/freegames" class="filter-link" data-filter="free-games">Free</a>
+                        <a href="/upcoming" class="filter-link" data-filter="upcoming">Upcoming</a>
+                        <a href="/top-sellers" class="filter-link" data-filter="top-sellers">Top Sellers</a>
+                    </ul>
+                    <a href="/about" class="login-btn">About</a>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </nav>
+
+            <div id="responsive_store_nav_ctn"></div>
+            <div id="responsive_store_nav_overlay" style="display:none">
+                <div id="responsive_store_nav_overlay_ctn"></div>
+                <div id="responsive_store_nav_overlay_bottom"></div>
+            </div>
+            <div id="responsive_store_search_overlay" style="display:none"></div>
+            <div data-cart-banner-spot="1"></div>
+            <div role="main" class="responsive_page_template_content" id="responsive_page_template_content"
+                data-panel="{&quot;autoFocus&quot;:true}">
+
+                <div id="application_root">
+                    <div class="_2uHYtSBLSS1MxFonkOXr0O"></div>
+                </div>
+                <script>window.g_wapit = "eyAidHlwIjogIkpXVCIsICJhbGciOiAiRWREU0EiIH0.eyAiaXNzIjogInI6MEY5MV8yNEQzMEJGOF82MjgwOSIsICJzdWIiOiAiNzY1NjExOTg4Njg1Mjk3MjQiLCAiYXVkIjogWyAid2ViOnN0b3JlIiBdLCAiZXhwIjogMTcyNzQwNzU2OSwgIm5iZiI6IDE3MTg2ODA0MTksICJpYXQiOiAxNzI3MzIwNDE5LCAianRpIjogIjEwQTdfMjUxQ0RFNDZfMzU3RkQiLCAib2F0IjogMTcyMjU0NTQwNCwgInJ0X2V4cCI6IDE3NDA5MzQ4ODYsICJwZXIiOiAwLCAiaXBfc3ViamVjdCI6ICIxMjIuMTYxLjQ4LjIyMyIsICJpcF9jb25maXJtZXIiOiAiMTIyLjE2MS40OC4yMjMiIH0.a8ees20FYvCVjE5owenA5AkiXHjYeWQ8WSwVblHVuY3xJ-jldBphmGBpIlneEi-z_dToYnjIIhaOW1Oazj4kBw";</script>
+                <link
+                    href="https://store.akamai.steamstatic.com/public/css/applications/store/main.css?v=lLzSRuRzjduC&amp;l=english"
+                    rel="stylesheet" type="text/css">
+                <script type="text/javascript"
+                    src="https://store.akamai.steamstatic.com/public/javascript/applications/store/manifest.js?v=lpQ0iiZKP2S3&amp;l=english"></script>
+                <script type="text/javascript"
+                    src="https://store.akamai.steamstatic.com/public/javascript/applications/store/libraries~b28b7af69.js?v=zqiP6ETIMSxN&amp;l=english"></script>
+                <script type="text/javascript"
+                    src="https://store.akamai.steamstatic.com/public/javascript/applications/store/main.js?v=Sryh2J9tGESE&amp;l=english"></script>
+                <script>window.g_wapitExpiry = 1727407569;</script>
+                <script type="text/javascript">
+
+                    var g_eDiscoveryQueueType = 0;
+
+                    $J(function () {
+                        var $Expander = $J('#devnotes_expander');
+                        if ($Expander.length && $Expander.height() < parseInt($Expander.css('max-height'))) {
+                            $J('#devnotes_more').hide();
+                        }
+
+                        CollapseLongStrings('.dev_row .summary.column');
+
+                        // standalone demo pages should show a follow button for the parent app, not the current page
+                        InitQueueControls(2322010, 2322010, 2790740, "1_direct-navigation__");
+                        InitAutocollapse();
+                        InitHorizontalAutoSliders();
+
+                        Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_details_right', $J('#responsive_apppage_details_right_ctn'));
+                        Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_details_left', $J('#responsive_apppage_details_left_ctn'));
+                        Responsive_ReparentItemsInResponsiveMode('.responsive_apppage_reviewblock', $J('#responsive_apppage_reviewblock_ctn'));
+
+                        //hack to workaround chrome bug
+                        $J('#responsive_apppage_reviewblock_ctn').css('width', '100%');
+                        window.setTimeout(function () { $J('#responsive_apppage_reviewblock_ctn').css('width', ''); }, 1);
+
+                        var watcher = new CScrollOffsetWatcher($J('#app_reviews_hash'), OnLoadReviews);
+                        watcher.SetBufferHeight(0);
+
+                        InitPlaytimeFilterSlider();
+
+                        // on Tablet wait to do this when the window is fully loaded - see OnPageLoaded()
+                        ReparentAppLandingPageForSmallScreens();
+
+
+                        AddRightNavStickyPaddingOnTablet();
+
+                        var usability = InitUsabilityTracker("https:\/\/store.steampowered.com\/app\/usabilitytracking\/2322010");
+                        usability.ScheduleUpload();
+
+
+                    });
+
+
+                    function OpenTagModal() {
+                        ShowAppTagModal(2322010);
+                    }
+
+                </script>
+
+                <div class="game_page_background game"
+                    style="background-image: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2487060/page_bg_generated_v6b.jpg?t=1725947552');"
+                    data-miniprofile-appid="2322010">
+
+                    <div class="responsive_store_nav_ctn_spacer">
+
+                    </div>
+
+                    <script type="text/javascript">
+                        $J(function () {
+                            BindAutoFlyoutEvents();
+
+                            var $Window = $J(window);
+                            var $Header = $J('#store_header');
+                            var $ResponsiveNavWindowShadeCtn = $J('#responsive_store_nav_ctn');
+                            var $ResponsiveNavOverlay = $J('#responsive_store_nav_overlay');
+                            var $ResponsiveNavOverlayCtn = $J('#responsive_store_nav_overlay_ctn');
+                            var $ResponsiveNavOverlayBottom = $J('#responsive_store_nav_overlay_bottom');
+                            var $HeaderWrapper;
+                            $Window.on('Responsive_SmallScreenModeToggled.StoreMenu', function () {
+                                var bUseSmallScreenMode = window.UseSmallScreenMode && window.UseSmallScreenMode();
+
+                                if (!$HeaderWrapper)
+                                    $HeaderWrapper = $Header.wrap($J('<div/>', { 'class': 'responsive_store_nav_ctn_spacer' })).parent();
+
+                                if (bUseSmallScreenMode)
+                                    $ResponsiveNavWindowShadeCtn.append($Header);
+                                else
+                                    $HeaderWrapper.append($Header);
+
+
+                                if (bUseSmallScreenMode) {
+                                    $Header.css('visibility', 'hidden');
+                                    $Header.show();
+
+                                    var nStartingScrollPosition = $J('#store_header').height();
+                                    if ($Window.scrollTop() < nStartingScrollPosition)
+                                        $Window.scrollTop(nStartingScrollPosition);
+
+                                    $Header.css('visibility', 'visible');
+                                }
+                            });
+
+                            window.setTimeout(function () { $J(window).trigger('Responsive_SmallScreenModeToggled.StoreMenu'); }, 0);
+
+                            var g_rgUserPreferences = {
+                                excluded_tags: [],
+                                excluded_content_descriptors: []
+                            };
+
+                            g_rgUserPreferences['use_store_query'] = 1;
+
+                            g_rgUserPreferences['use_search_spellcheck'] = 1;
+                            g_rgUserPreferences['search_creators_and_tags'] = 1;
+
+                            if ($J('#searchform').length > 0) {
+                                // default search support where the web page includes the search edit control
+                                EnableSearchSuggestions($J('#searchform')[0].elements['term'], '1_5_9_', 'IN', 1, 'english', g_rgUserPreferences, '25406450');
+                            }
+                            else {
+                                // search support for the mobile client.  the mobile client has a native search edit control but relies on the web content to perform the query and show results
+                            }
+
+                            // make genre categories expand/collapse on mobile
+                            $J(document).on('click', '.popup_genre_expand_header', function (event) {
+                                if (!UseSmallScreenMode())
+                                    return;
+
+                                event.preventDefault();
+                                var $Element = $J(this);
+                                var $Target = $J('.popup_genre_expand_content[data-genre-group=' + $Element.data('genre-group') + ']');
+                                if ($Element.data('group-expanded')) {
+                                    $Target.slideUp();
+                                    $Element.data('group-expanded', false);
+                                }
+                                else {
+                                    $Target.slideDown();
+                                    $Element.data('group-expanded', true);
+                                }
+                            });
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        var g_AccountID = 908263996;
+                        var g_sessionID = "3dfb92d6e8136f901ad4fe59";
+                        var g_ServerTime = 1727357882;
+                        var g_bUseNewCartAPI = true;
+
+                        $J(InitMiniprofileHovers('https%3A%2F%2Fstore.steampowered.com%2F'));
+
+
+                        GStoreItemData.AddNavParams({
+                            __page_default: "1_5_9_",
+                            __page_default_obj: { "domain": "store.steampowered.com", "controller": "application", "method": "app", "submethod": "", "feature": null, "depth": null, "countrycode": "IN", "webkey": null, "is_client": false, "curator_data": null, "is_likely_bot": false, "is_utm": null },
+                            __originating_obj: { "domain": "store.steampowered.com", "controller": "direct-navigation", "method": "", "submethod": "", "feature": "", "depth": 0, "countrycode": "", "webkey": null, "is_client": false, "curator_data": null, "is_likely_bot": false, "is_utm": false },
+                            storemenu_recommendedtags: "1_5_9__17"
+                        });
+                        GDynamicStore.Init(908263996, false, "", { "primary_language": -1, "secondary_languages": 0, "platform_windows": 0, "platform_mac": 0, "platform_linux": 0, "timestamp_updated": 1553410248, "hide_store_broadcast": 0, "review_score_preference": 0, "timestamp_content_descriptor_preferences_updated": 1553410248, "provide_deck_feedback": 0, "additional_languages": null }, 'IN',
+                            { "bNoDefaultDescriptors": false });
+                        GStoreItemData.SetCurrencyFormatter(function (nValueInCents, bWholeUnitsOnly) { var fmt = function (nValueInCents, bWholeUnitsOnly) { var format = v_numberformat(nValueInCents / 100, bWholeUnitsOnly ? 0 : 2, ".", ","); format = format.replace(".00", ''); return format; }; var strNegativeSymbol = ''; return strNegativeSymbol + "\u20b9 " + fmt(nValueInCents, bWholeUnitsOnly); });
+                        GStoreItemData.SetCurrencyMinPriceIncrement(100);
+                    </script>
+
+                    <!-- create two column layout for Deck, Tablet sized screens -->
+                    <div id="tabletGrid" class="tablet_grid">
+
+                        <div class="page_content_ctn" itemscope="" itemtype="http://schema.org/Product">
+
+                            <div class="page_title_area game_title_area page_content" data-gpnav="columns">
+
+                                <div class="apphub_HomeHeaderContent">
+
+                                    <div class="apphub_HeaderStandardTop">
+                                        <div id="appHubAppName" class="apphub_AppName">Steam Scraper on FastAPI</div>
+                                        <div style="clear: both"></div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div style="clear: left;"></div>
+
+
+                            <div class="block game_media_and_summary_ctn">
+                                <script type="text/javascript">
+                                    var strRequiredVersion = "9";
+                                    if (typeof (g_bIsOnMac) != 'undefined' && g_bIsOnMac)
+                                        strRequiredVersion = "10.1.0";
+
+                                </script>
+
+                                <div class="queue_overflow_ctn">
+
+                                    <div id="queueCtn" class="queue_ctn in_queue">
+                                        <div id="queueActionsCtn" class="queue_actions_ctn"
+                                            data-panel="{&quot;flow-children&quot;:&quot;column&quot;}">
+                                            <div id="nextInDiscoveryQueue" class="next_in_queue_area">
+                                                <div class="queue_reason_description queue_settings_link_ctn">
+                                                    <a href="javascript:void(0);" class="dq_settings_link">Customize</a>
+                                                    your queue
+                                                </div>
+                                                <div data-panel="{&quot;noFocusRing&quot;:true,&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+                                                    class="btn_next_in_queue btn_next_in_queue_trigger"
+                                                    data-tooltip-text="Remove this product from your queue and continue to the next item.">
+                                                    <div class="next_in_queue_content">
+                                                        <span>Next in Queue<br>
+                                                            <span class="queue_sub_text">(11 remaining)</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <form id="next_in_queue_form" method="post"
+                                                action="https://store.steampowered.com/app/2790740?queue=1"
+                                                style="display: none;">
+                                                <input type="hidden" name="sessionid" value="3dfb92d6e8136f901ad4fe59">
+                                                <input type="hidden" name="appid_to_clear_from_queue" value="2322010">
+                                                <input type="hidden" name="snr" value="1_5_9__1324">
+                                            </form>
+
+                                            <div class="queue_reason_description">
+                                                This product is in your <a
+                                                    href="https://store.steampowered.com/explore/">discovery queue</a>
+                                                because it is popular. </div>
+
+                                            <div id="queueBtnFollow" class="queue_control_button queue_btn_follow"
+                                                style="flex-grow: 0;">
+                                                <div class="btnv6_blue_hoverfade btn_medium queue_btn_inactive"
+                                                    data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+                                                    style=""
+                                                    data-tooltip-text="Follow this item to see announcements in your community activity feed.">
+                                                    <span>Follow</span>
+                                                </div>
+                                            </div>
+
+                                            <div style="clear: both;"></div>
+                                        </div>
+                                        <div class="queue_controls_description">Select an option above or just click
+                                            “Next in Queue” to skip this item and see the next product in your queue.
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="page_content" data-panel="[]">
+
+                                <!-- Right Column -->
+                                <div class="rightcol game_meta_data"
+                                    data-panel="{&quot;flow-children&quot;:&quot;column&quot;}">
+                                    <div id="responsive_apppage_details_left_ctn"></div>
+
+                                    <div id="responsive_apppage_details_right_ctn"></div>
+                                    <div style="clear: both;"></div>
+                                    <!-- testing a banner on Desktop to open the current page in the desktop Steam client.  When that banner is displayed this section should be hidden. -->
+
+                                    <div class="block responsive_apppage_details_right heading">Is this game relevant to
+                                        you?</div>
+                                    <div data-panel="{&quot;type&quot;:&quot;PanelGroup&quot;}"
+                                        class="block responsive_apppage_details_right recommendation_reasons">
+
+                                        <p class="reason for">
+                                            Similar to games you've played: </p>
+                                        <div class="similar_recent_apps_container">
+                                            <a data-ds-appid="990080" data-ds-itemkey="App_990080"
+                                                data-ds-tagids="[4057,1684,1695,4182,21,122,4747]"
+                                                data-ds-crtrids="[34133273]"
+                                                onmouseover="GameHover( this, event, 'global_hover', {&quot;type&quot;:&quot;app&quot;,&quot;id&quot;:990080,&quot;v6&quot;:1} );"
+                                                onmouseout="HideGameHover( this, event, 'global_hover' )"
+                                                data-store-html="<b>Hogwarts Legacy</b><br>Similar tags: "
+                                                href="https://store.steampowered.com/app/990080/Hogwarts_Legacy/?snr=1_5_9__414"
+                                                class="similarapp ds_no_flags app_impression_tracked">
+                                                <img
+                                                    src="https://wallpapers.com/images/hd/neon-life-desktop-5x07jyu1x2zc7qii.jpg"><br>
+                                                69+ hrs on record </a>
+                                        </div>
+                                        <hr>
+
+                                        <p class="reason for">
+                                            In the Top Narcissists </p>
+                                        <hr>
+
+                                    </div>
+
+                                    <div class="responsive_block_header responsive_apppage_details_left">Features</div>
+                                    <div class="block responsive_apppage_details_left" id="category_block">
+                                        <div data-panel="{&quot;type&quot;:&quot;PanelGroup&quot;}"
+                                            class="game_area_features_list_ctn">
+                                            <a class="game_area_details_specs_ctn"
+                                                data-panel="{&quot;flow-children&quot;:&quot;column&quot;}"
+                                                href="https://store.steampowered.com/search/?category2=2&amp;snr=1_5_9__423">
+                                                <div class="icon"><img class="category_icon"
+                                                        src="https://store.akamai.steamstatic.com/public/images/v6/ico/ico_singlePlayer.png">
+                                                </div>
+                                                <div class="label">Single-player</div>
+                                            </a><a class="game_area_details_specs_ctn"
+                                                data-panel="{&quot;flow-children&quot;:&quot;column&quot;}"
+                                                href="https://store.steampowered.com/search/?category2=22&amp;snr=1_5_9__423">
+                                                <div class="icon"><img class="category_icon"
+                                                        src="https://store.akamai.steamstatic.com/public/images/v6/ico/ico_achievements.png">
+                                                </div>
+                                                <div class="label">Steam Achievements</div>
+                                            </a><a class="game_area_details_specs_ctn"
+                                                data-panel="{&quot;flow-children&quot;:&quot;column&quot;}"
+                                                href="https://store.steampowered.com/search/?category2=23&amp;snr=1_5_9__423">
+                                                <div class="icon"><img class="category_icon"
+                                                        src="https://store.akamai.steamstatic.com/public/images/v6/ico/ico_cloud.png">
+                                                </div>
+                                                <div class="label">Steam Cloud</div>
+                                            </a><a class="game_area_details_specs_ctn"
+                                                data-panel="{&quot;flow-children&quot;:&quot;column&quot;}"
+                                                href="https://store.steampowered.com/search/?category2=61&amp;snr=1_5_9__423">
+                                                <div class="icon"><img class="category_icon"
+                                                        src="https://store.akamai.steamstatic.com/public/images/v6/ico/ico_hdr.png">
+                                                </div>
+                                                <div class="label">HDR available</div>
+                                            </a><a class="game_area_details_specs_ctn"
+                                                data-panel="{&quot;flow-children&quot;:&quot;column&quot;}"
+                                                href="https://store.steampowered.com/search/?category2=62&amp;snr=1_5_9__423">
+                                                <div class="icon"><img class="category_icon"
+                                                        src="https://store.akamai.steamstatic.com/public/images/v6/ico/ico_familysharing.png">
+                                                </div>
+                                                <div class="label">Family Sharing</div>
+                                            </a>
+                                        </div>
+
+                                        <div data-featuretarget="store-sidebar-controller-support-info"
+                                            data-props="{&quot;unAppID&quot;:2322010,&quot;bFullXboxControllerSupport&quot;:true,&quot;bPartialXboxControllerSupport&quot;:false,&quot;bPS4ControllerSupport&quot;:true,&quot;bPS4ControllerBTSupport&quot;:true,&quot;bPS5ControllerSupport&quot;:true,&quot;bPS5ControllerBTSupport&quot;:true,&quot;bSteamInputAPISupport&quot;:true,&quot;bNoKeyboardSupport&quot;:false,&quot;bGamepadPreferred&quot;:false,&quot;bControllerSupportWizardComplete&quot;:true,&quot;bHasXbox&quot;:1,&quot;bHasPS4&quot;:0,&quot;bHasPS5&quot;:0,&quot;bHasOther&quot;:false}">
+                                            <div class="_1CTHwmZmi5YE4kovZH_UIl">
+                                                <div class="_1mfBI5XbiaKU9vS5WkJALu">Full Controller Support</div><a
+                                                    href="https://store.steampowered.com/search/?controllersupport=18"
+                                                    class="_2xZaMR-NKc0LbkeM50cZq8">
+                                                    <div class="dxuI55RF56-dzbuXjj2W0"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"
+                                                            fill="none" class="_1LWvkVSCiVeG4Yf5uxtQ28">
+                                                            <path fill="currentColor" fill-rule="evenodd"
+                                                                clip-rule="evenodd"
+                                                                d="M11.25 5.625C11.909 5.625 12.182 5.81802 12.4081 5.97792C12.568 6.09099 12.7045 6.1875 12.9375 6.1875H23.0625C23.2955 6.1875 23.432 6.09099 23.5919 5.97792C23.818 5.81802 24.091 5.625 24.75 5.625C25.875 5.625 29.25 6.75 29.8125 7.3125C30.375 7.875 30.375 8.4375 30.375 8.4375V8.5803C30.8163 8.91923 31.1986 9.26106 31.5 9.5625C32.625 10.6875 36 20.25 36 25.3125C36 30.375 32.625 30.9375 32.625 30.9375C31.7178 30.9375 30.323 29.1494 28.9649 27.4083C27.7966 25.9106 26.6553 24.4476 25.875 24.1875C24.1875 23.625 11.8125 23.625 10.125 24.1875C9.34465 24.4476 8.20344 25.9106 7.03512 27.4083C5.67696 29.1494 4.28215 30.9375 3.375 30.9375C3.375 30.9375 0 30.375 0 25.3125C0 20.25 3.375 10.6875 4.5 9.5625C4.80144 9.26106 5.18366 8.91923 5.625 8.5803V8.4375C5.625 8.4375 5.625 7.875 6.1875 7.3125C6.75 6.75 10.125 5.625 11.25 5.625ZM27.5625 8.71875C28.3392 8.71875 28.9688 9.34835 28.9688 10.125C28.9688 10.9017 28.3392 11.5312 27.5625 11.5312C26.7858 11.5312 26.1562 10.9017 26.1562 10.125C26.1562 9.34835 26.7858 8.71875 27.5625 8.71875ZM8.4375 14.625C9.68014 14.625 10.6875 13.6176 10.6875 12.375C10.6875 11.1324 9.68014 10.125 8.4375 10.125C7.19486 10.125 6.1875 11.1324 6.1875 12.375C6.1875 13.6176 7.19486 14.625 8.4375 14.625ZM23.0625 20.25C24.3051 20.25 25.3125 19.2426 25.3125 18C25.3125 16.7574 24.3051 15.75 23.0625 15.75C21.8199 15.75 20.8125 16.7574 20.8125 18C20.8125 19.2426 21.8199 20.25 23.0625 20.25ZM12.0938 17.1562V16.3125C12.0938 16.0018 12.3456 15.75 12.6562 15.75H13.7812C14.0919 15.75 14.3438 16.0018 14.3438 16.3125V17.1562H15.1875C15.4982 17.1562 15.75 17.4081 15.75 17.7188V18.8438C15.75 19.1544 15.4982 19.4062 15.1875 19.4062H14.3438V20.25C14.3438 20.5607 14.0919 20.8125 13.7812 20.8125H12.6562C12.3456 20.8125 12.0938 20.5607 12.0938 20.25V19.4062H11.25C10.9393 19.4062 10.6875 19.1544 10.6875 18.8438V17.7188C10.6875 17.4081 10.9393 17.1562 11.25 17.1562H12.0938ZM25.0312 14.0625C25.8079 14.0625 26.4375 13.4329 26.4375 12.6562C26.4375 11.8796 25.8079 11.25 25.0312 11.25C24.2546 11.25 23.625 11.8796 23.625 12.6562C23.625 13.4329 24.2546 14.0625 25.0312 14.0625ZM31.5 12.6562C31.5 13.4329 30.8704 14.0625 30.0938 14.0625C29.3171 14.0625 28.6875 13.4329 28.6875 12.6562C28.6875 11.8796 29.3171 11.25 30.0938 11.25C30.8704 11.25 31.5 11.8796 31.5 12.6562ZM28.9688 15.1875C28.9688 14.4108 28.3392 13.7812 27.5625 13.7812C26.7858 13.7812 26.1562 14.4108 26.1562 15.1875C26.1562 15.9642 26.7858 16.5938 27.5625 16.5938C28.3392 16.5938 28.9688 15.9642 28.9688 15.1875Z">
+                                                            </path>
+                                                        </svg></div>
+                                                    <div class="_3KAysk4dlhWETa6ixz7V2j">
+                                                        <div class="_3FBEGAfvLQj4qYjstmZAPE _1g3WgidGN68CDX4XQPGnl6">
+                                                            Your Xbox Controller</div>
+                                                    </div>
+                                                </a><a
+                                                    href="https://store.steampowered.com/search/?controllersupport=undefined"
+                                                    class="_2xZaMR-NKc0LbkeM50cZq8">
+                                                    <div class="dxuI55RF56-dzbuXjj2W0"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"
+                                                            fill="none" class="_1LWvkVSCiVeG4Yf5uxtQ28">
+                                                            <g clip-path="url(#svgid_3)">
+                                                                <path fill="currentColor" fill-rule="evenodd"
+                                                                    clip-rule="evenodd"
+                                                                    d="M4.49995 7.47C3.93745 8.0325 2.81244 10.2825 2.81244 10.2825C2.24993 11.97 0.562445 17.0325 -5.43911e-05 23.7825C-5.43911e-05 23.7825 -0.562553 28.845 3.37495 29.4075C6.832 29.8396 7.9652 25.2921 8.55982 22.9059C8.73921 22.186 8.86958 21.6629 8.99995 21.5325C9.33789 21.1945 9.67584 21.0596 9.89181 21.0058C10.5086 21.6754 11.3928 22.095 12.3749 22.095C13.3745 22.095 14.2726 21.6605 14.8906 20.97H21.1093C21.7273 21.6605 22.6254 22.095 23.6249 22.095C24.6071 22.095 25.4913 21.6754 26.1081 21.0058C26.3241 21.0596 26.662 21.1945 27 21.5325C27.1303 21.6629 27.2607 22.186 27.4401 22.9059C28.0347 25.2921 29.1679 29.8396 32.625 29.4075C36.5625 28.845 36 23.7825 36 23.7825C35.4375 17.0325 33.75 11.97 33.1875 10.2825C33.1875 10.2825 32.0625 8.03251 31.4999 7.47C31.4575 7.42758 31.3927 7.39155 31.3091 7.36121C30.794 7.09333 29.2603 6.45543 26.9999 6.9075C26.8121 7.09539 26.6869 7.28328 26.6036 7.45021C26.4971 7.46255 26.4375 7.47001 26.4375 7.47001L25.875 8.0325L24.1874 8.03251V12.5325C24.1874 13.1538 23.6838 13.6575 23.0624 13.6575H12.9374C12.3161 13.6575 11.8124 13.1538 11.8124 12.5325V8.03251L10.1249 8.03249L9.56245 7.47C9.56245 7.47 9.50277 7.46254 9.39629 7.4502C9.31296 7.28328 9.18783 7.09539 8.99995 6.9075C6.73958 6.45543 5.20586 7.09333 4.6908 7.36121C4.60721 7.39155 4.54237 7.42759 4.49995 7.47ZM14.3999 18.1575C14.3999 19.4002 13.3926 20.4075 12.1499 20.4075C10.9073 20.4075 9.89995 19.4002 9.89995 18.1575C9.89995 16.9149 10.9073 15.9075 12.1499 15.9075C13.3926 15.9075 14.3999 16.9149 14.3999 18.1575ZM23.6249 20.4075C24.8676 20.4075 25.8749 19.4002 25.8749 18.1575C25.8749 16.9149 24.8676 15.9075 23.6249 15.9075C22.3823 15.9075 21.3749 16.9149 21.3749 18.1575C21.3749 19.4002 22.3823 20.4075 23.6249 20.4075ZM30.3749 10.845C30.3749 11.4663 29.8713 11.97 29.2499 11.97C28.6286 11.97 28.1249 11.4663 28.1249 10.845C28.1249 10.2237 28.6286 9.72001 29.2499 9.72001C29.8713 9.72001 30.3749 10.2237 30.3749 10.845ZM29.2499 17.0325C29.8713 17.0325 30.3749 16.5288 30.3749 15.9075C30.3749 15.2862 29.8713 14.7825 29.2499 14.7825C28.6286 14.7825 28.1249 15.2862 28.1249 15.9075C28.1249 16.5288 28.6286 17.0325 29.2499 17.0325ZM26.7187 12.2513C27.34 12.2513 27.8437 12.7549 27.8437 13.3763C27.8437 13.9976 27.34 14.5013 26.7187 14.5013C26.0974 14.5013 25.5937 13.9976 25.5937 13.3763C25.5937 12.7549 26.0974 12.2513 26.7187 12.2513ZM32.9062 13.3763C32.9062 12.7549 32.4025 12.2513 31.7812 12.2513C31.1599 12.2513 30.6562 12.7549 30.6562 13.3763C30.6562 13.9976 31.1599 14.5013 31.7812 14.5013C32.4025 14.5013 32.9062 13.9976 32.9062 13.3763ZM5.62495 10.7825C5.62495 10.5064 5.8488 10.2825 6.12495 10.2825H7.37495C7.65109 10.2825 7.87495 10.5064 7.87495 10.7825V11.7629C7.87495 11.8955 7.82227 12.0227 7.7285 12.1165L7.1035 12.7415C6.90824 12.9367 6.59166 12.9367 6.39639 12.7415L5.77139 12.1165C5.67763 12.0227 5.62495 11.8955 5.62495 11.7629V10.7825ZM6.12495 16.47C5.8488 16.47 5.62495 16.2462 5.62495 15.97V14.9896C5.62495 14.857 5.67763 14.7298 5.77139 14.6361L6.39639 14.0111C6.59166 13.8158 6.90824 13.8158 7.1035 14.0111L7.7285 14.6361C7.82227 14.7298 7.87495 14.857 7.87495 14.9896V15.97C7.87495 16.2462 7.65109 16.47 7.37495 16.47H6.12495ZM4.1562 14.5013C3.88006 14.5013 3.6562 14.2774 3.6562 14.0013V12.7513C3.6562 12.4751 3.88006 12.2513 4.1562 12.2513H5.13659C5.2692 12.2513 5.39638 12.3039 5.49014 12.3977L6.11514 13.0227C6.31041 13.218 6.31041 13.5346 6.11514 13.7298L5.49014 14.3548C5.39638 14.4486 5.2692 14.5013 5.13659 14.5013H4.1562ZM9.8437 14.0013C9.8437 14.2774 9.61984 14.5013 9.3437 14.5013H8.36331C8.2307 14.5013 8.10352 14.4486 8.00975 14.3548L7.38475 13.7298C7.18949 13.5346 7.18949 13.218 7.38475 13.0227L8.00975 12.3977C8.10352 12.3039 8.2307 12.2513 8.36331 12.2513H9.3437C9.61984 12.2513 9.8437 12.4751 9.8437 12.7513V14.0013Z">
+                                                                </path>
+                                                                <path fill="currentColor"
+                                                                    d="M23.0624 8.03251L12.9374 8.03251V12.5325H23.0624V8.03251Z">
+                                                                </path>
+                                                            </g>
+                                                            <defs>
+                                                                <clipPath id="svgid_3">
+                                                                    <rect fill="currentColor" width="36" height="36">
+                                                                    </rect>
+                                                                </clipPath>
+                                                            </defs>
+                                                        </svg></div>
+                                                    <div class="_3KAysk4dlhWETa6ixz7V2j">
+                                                        <div class="_3FBEGAfvLQj4qYjstmZAPE">PlayStation Controllers
+                                                        </div>
+                                                    </div>
+                                                </a><a
+                                                    href="https://store.steampowered.com/search/?controllersupport=59"
+                                                    class="_2xZaMR-NKc0LbkeM50cZq8">
+                                                    <div class="dxuI55RF56-dzbuXjj2W0"><svg
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="-3 0 25 15"
+                                                            fill="none" class="WRiytnKTtULWCkwFVJoTx">
+                                                            <path fill="currentColor" fill-rule="evenodd"
+                                                                clip-rule="evenodd"
+                                                                d="M11.3699 2.1855H7.84997C7.1763 2.1855 6.52367 2.03814 5.8921 1.82761C2.57518 0.642996 1.92458 2.62958 1.05846 5.27426C0.924084 5.68458 0.78452 6.11073 0.629006 6.54335C-0.528876 9.78541 -0.0446708 12.9012 1.72373 13.5327C3.13424 14.038 4.94474 12.7538 6.20789 10.5222C6.46052 10.6486 6.75525 10.7328 7.07103 10.7328C7.28247 10.7328 7.48656 10.6985 7.67799 10.6352L11.3699 2.1855ZM4.41843 7.40649C4.41843 7.4907 4.48159 7.55386 4.5658 7.55386V7.53281H5.42895C5.51316 7.53281 5.57632 7.46965 5.57632 7.38544V6.22756H6.7342C6.83946 6.22756 6.90262 6.1644 6.90262 6.08019V5.2381C6.90262 5.15389 6.81841 5.09073 6.7342 5.09073H5.57632V3.93285C5.57632 3.84864 5.51316 3.78548 5.42895 3.78548H4.5658C4.48159 3.78548 4.41843 3.84864 4.41843 3.93285V5.09073H3.26055C3.15529 5.09073 3.09213 5.15389 3.09213 5.2381V6.10125C3.09213 6.18546 3.17634 6.24861 3.26055 6.24861H4.41843V7.40649ZM6.14473 8.7749C6.14473 9.28016 6.54473 9.7012 7.04998 9.7012C7.55524 9.7012 7.97629 9.28016 7.97629 8.7749C7.97629 8.29069 7.55524 7.86965 7.04998 7.86965C6.56578 7.86965 6.14473 8.26964 6.14473 8.7749Z">
+                                                            </path>
+                                                            <path fill="currentColor" fill-rule="evenodd"
+                                                                clip-rule="evenodd"
+                                                                d="M13.828 2.92182C13.8318 2.92822 13.8354 2.93477 13.839 2.94132C13.8436 2.94968 13.8481 2.95804 13.8532 2.96608C13.86 2.97684 13.8674 2.98708 13.8748 2.99732L13.8748 2.99736L13.8748 2.9974C13.8798 3.00433 13.8848 3.01126 13.8897 3.01835C14.0485 3.25263 14.2573 3.45281 14.5086 3.59687L14.5127 3.59947C14.5584 3.62555 14.6063 3.64869 14.6546 3.67094C14.6589 3.67292 14.6631 3.67511 14.6673 3.67731L14.6673 3.67731C14.6721 3.67986 14.677 3.68241 14.682 3.6846C14.7397 3.71 14.7992 3.73269 14.8603 3.75245C14.865 3.75395 14.8698 3.7552 14.8746 3.75644L14.8746 3.75644C14.8788 3.75754 14.883 3.75864 14.8872 3.7599L14.8881 3.76002C15.2353 3.86547 15.6028 3.86558 15.9504 3.76002L15.9512 3.75985L15.9521 3.75968C15.9562 3.7584 15.9604 3.75733 15.9645 3.75625C15.9692 3.75504 15.9738 3.75383 15.9785 3.75234C16.0447 3.731 16.1087 3.70503 16.1714 3.67658C16.1885 3.66881 16.2052 3.66017 16.2218 3.65153L16.2437 3.64023C16.2799 3.62182 16.3158 3.60274 16.3507 3.58208C16.3798 3.56481 16.4081 3.54663 16.4361 3.52777C16.4636 3.50937 16.4905 3.49006 16.5169 3.47019C16.5466 3.44795 16.5762 3.42548 16.6045 3.40144C16.6231 3.38577 16.6409 3.36911 16.6586 3.35246L16.6703 3.3416L16.6888 3.3244L16.6888 3.32438C16.7113 3.30361 16.7338 3.28286 16.7549 3.26064C16.7681 3.24682 16.7804 3.23217 16.7927 3.21749L16.7927 3.21747L16.7927 3.21745C16.7991 3.20984 16.8054 3.20222 16.8119 3.19471C16.8559 3.14413 16.897 3.09129 16.9356 3.03608L16.9462 3.02092C16.9636 2.99614 16.9809 2.97142 16.9969 2.94553C17.0115 2.92184 17.0249 2.89721 17.0382 2.87262L17.0382 2.8726L17.0464 2.85747C17.1084 2.74389 17.1621 2.62455 17.2009 2.49798C17.5113 1.48671 16.9628 0.406 15.9783 0.0888548C15.7942 0.0294676 15.6053 0 15.4174 0C15.1269 0 14.8385 0.0703387 14.5726 0.209322C14.1217 0.444952 13.7898 0.847565 13.6377 1.34321C13.4833 1.84608 13.5417 2.36611 13.7602 2.8009C13.7811 2.84256 13.8045 2.88219 13.828 2.92182ZM15.4233 0.661048C15.464 0.534258 15.5996 0.464032 15.7264 0.505129C16.4892 0.751032 16.915 1.58494 16.6758 2.36408C16.6441 2.46795 16.5487 2.53456 16.4458 2.53456C16.4223 2.53456 16.3984 2.53106 16.3749 2.52373C16.2478 2.48455 16.1764 2.34952 16.2156 2.22216C16.3776 1.69411 16.0921 1.13005 15.579 0.964758C15.4524 0.923887 15.3827 0.787951 15.4233 0.661048ZM15.7794 7.10124V8.4729C15.7794 8.67172 15.6177 8.8334 15.4192 8.8334C15.2205 8.8334 15.0589 8.67172 15.0589 8.4729V7.10124V5.77417V4.29458C15.1785 4.31354 15.2988 4.32325 15.4192 4.32325C15.5395 4.32325 15.6599 4.31354 15.7794 4.29458V5.77406V7.10124ZM15.4192 11.1944C13.9757 11.1944 12.8014 10.0184 12.8014 8.573C12.8014 7.44668 13.5323 6.44692 14.5773 6.09093V6.94821C13.9729 7.26129 13.5902 7.88214 13.5902 8.57311C13.5902 9.58314 14.4108 10.4049 15.4192 10.4049C16.4277 10.4049 17.2482 9.58314 17.2482 8.57311C17.2482 7.88203 16.8655 7.2614 16.261 6.9481V6.09082C17.3059 6.44692 18.037 7.44679 18.037 8.573C18.037 10.0184 16.8627 11.1944 15.4192 11.1944ZM14.5773 7.51953V8.47289C14.5773 8.93782 14.9551 9.31616 15.4192 9.31616C15.8833 9.31616 16.261 8.93782 16.261 8.47289V7.51953C16.5762 7.77097 16.7665 8.15461 16.7665 8.57292C16.7665 9.31672 16.1621 9.92189 15.4192 9.92189C14.6763 9.92189 14.0719 9.31672 14.0719 8.57292C14.0719 8.15473 14.2622 7.77108 14.5773 7.51953ZM10 9.51902V14.0001H16.6L20.8387 4.29884V3.14599H17.4399C17.4033 3.20899 17.3638 3.26973 17.322 3.32878L17.3209 3.33036C17.1532 3.56655 16.9447 3.76989 16.7053 3.9301L16.7052 3.93021C16.5914 4.00642 16.4707 4.07281 16.3441 4.12824C16.3326 4.13333 16.321 4.13829 16.3094 4.14315L16.2899 4.1516C16.2803 4.15579 16.2708 4.15998 16.2612 4.16381V5.58797C17.58 5.96123 18.5189 7.18487 18.5189 8.57313C18.5189 10.2847 17.1284 11.6773 15.4194 11.6773C13.7103 11.6773 12.3198 10.2846 12.3198 8.57302C12.3198 7.18476 13.2586 5.96112 14.5774 5.58786V4.16133L14.5516 4.15149L14.5516 4.15149C14.5331 4.14452 14.5146 4.13756 14.4966 4.12971C14.4859 4.12505 14.4755 4.11987 14.4652 4.1147L14.4652 4.11469C14.4614 4.11278 14.4576 4.11087 14.4537 4.10898C14.4503 4.10732 14.447 4.10569 14.4435 4.10408C14.3911 4.0797 14.3392 4.05441 14.2891 4.02641C14.2787 4.02057 14.2687 4.01439 14.2587 4.00821L14.2404 3.99705C14.1902 3.96736 14.1407 3.93642 14.093 3.903C14.0844 3.89705 14.0762 3.89081 14.0679 3.88457L14.0679 3.88455L14.0536 3.87387C14.0047 3.8382 13.9569 3.80094 13.911 3.76154C13.9042 3.75576 13.8976 3.7498 13.891 3.74384L13.891 3.74381L13.8787 3.73275C13.8328 3.69187 13.7884 3.64942 13.7457 3.60494C13.7377 3.59661 13.7299 3.58813 13.722 3.57963L13.7159 3.57299C13.6752 3.52907 13.6363 3.48357 13.5989 3.43649C13.5882 3.42305 13.5777 3.40939 13.5673 3.39573C13.5335 3.35113 13.5012 3.30529 13.4704 3.2581C13.4587 3.24015 13.4469 3.22208 13.4356 3.20379C13.4306 3.19569 13.4254 3.18779 13.4201 3.17988C13.4127 3.16872 13.4054 3.15757 13.3986 3.14587H12.7846L10 9.51902ZM11.0839 12.5368C11.0839 12.8356 11.3275 13.0786 11.6272 13.0786C11.9268 13.0786 12.1707 12.8356 12.1706 12.5368C12.1706 12.238 11.9267 11.9949 11.6272 11.9949C11.3276 11.9949 11.0839 12.238 11.0839 12.5368Z">
+                                                            </path>
+                                                        </svg></div>
+                                                    <div class="_3KAysk4dlhWETa6ixz7V2j">
+                                                        <div class="_3FBEGAfvLQj4qYjstmZAPE">Steam Input API</div>
+                                                        <div class="_3PRdiJdKKfTnwLnTfbCkEz Focusable"><span
+                                                                class="_3vt5rw82YhkhWtu5ld9QeP">?</span></div>
+                                                    </div>
+                                                </a>
+                                                <div class="_2IS5rvIlv3ARam8O7b_-po"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="DRM_notice">
+                                            Requires 3rd-Party Account:&nbsp;PlayStation Network&nbsp;(Supports Linking
+                                            to Steam Account) </div>
+
+
+                                        <div class="DRM_notice"
+                                            data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;}">
+                                            <div>Requires agreement to a 3rd-party EULA</div>
+                                            <div><a href="https://store.steampowered.com//eula/2322010_eula_0"
+                                                    onclick="ShowEULA( this ); return false;">Steam Scraper on
+                                                    FastAPI</a></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="block responsive_apppage_details_right">
+                                        <div class="block_title" id="LanguagesHeader">
+                                            Languages<span class="responsive_hidden">:</span>
+                                        </div>
+
+                                        <div id="bannerLanguages"
+                                            data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+                                            class="responsive_banner_link" style="display: none"
+                                            onclick="ToggleBannerContentVisibility('#languageTable', '#expandLanguageBtn')">
+                                            <div class="responsive_banner_link_title">
+                                                English and 21 more </div>
+                                            <div id="expandLanguageBtn" class="expand_section"></div>
+                                        </div>
+                                        <div id="languageTable" style="display: block;">
+
+                                            <table class="game_language_options" cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="width: 94px;"></th>
+                                                        <th class="checkcol">Interface</th>
+                                                        <th class="checkcol">Full Audio</th>
+                                                        <th class="checkcol">Subtitles</th>
+                                                    </tr>
+
+                                                    <tr style="" class="">
+                                                        <td style="width: 94px; text-align: left" class="ellipsis">
+                                                            Hindi </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="display: none;" class="">
+                                                        <td style="width: 94px; text-align: left" class="ellipsis">
+                                                            English </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="display: none;" class="">
+                                                        <td style="width: 94px; text-align: left" class="ellipsis">
+                                                            German </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                        <td class="checkcol">
+                                                        </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="display: none;" class="">
+                                                        <td style="width: 94px; text-align: left" class="ellipsis">
+                                                            Spanish </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                        <td class="checkcol">
+                                                        </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="display: none;" class="">
+                                                        <td style="width: 94px; text-align: left" class="ellipsis">
+                                                            French </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                        <td class="checkcol">
+                                                            <span>✔</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <script type="text/javascript">
+                                                function ShowAllLanguages(elLink) {
+                                                    if (typeof GetUsabilityTracker !== 'undefined')
+                                                        GetUsabilityTracker().AddEvent(1002);
+
+                                                    $J('table.game_language_options tr').show();
+                                                    $J(elLink).hide();
+                                                    return false;
+                                                }
+                                            </script>
+                                            <a class="all_languages" onclick="return ShowAllLanguages( this )">See all
+                                                22 supported languages</a>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}"
+                                        id="bannerAchievements" class="responsive_banner_link" style="display: none"
+                                        onclick="window.location='https://steamcommunity.com/stats/2322010/achievements'">
+                                        <div class="responsive_banner_link_title responsive_chevron_right">View Steam
+                                            Achievements <span class="responsive_banner_link_total">(48)</span></div>
+                                    </div>
+
+                                    <div class="block responsive_apppage_details_right" id="achievement_block">
+                                        <div class="block_title">
+                                            Includes 48 Steam Achievements </div>
+                                        <div class="communitylink_achievement_images">
+                                            <div class="communitylink_achievement">
+                                                <img class="communitylink_achievement" title="Comeuppance"
+                                                    src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2322010/78ef1d9b71435a66f2f057c6901563687ebe06de.jpg">
+                                            </div>
+                                            <div class="communitylink_achievement">
+                                                <img class="communitylink_achievement" title="Backyard Brawl"
+                                                    src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2322010/0affab1ff995f3c320585bd30877379f4098ed7a.jpg">
+                                            </div>
+                                            <div class="communitylink_achievement">
+                                                <img class="communitylink_achievement" title="Root of the Problem"
+                                                    src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/2322010/d7ea3ba4988f3beeffa6eea3e3c6d31c9ed15f67.jpg">
+                                            </div>
+                                            <a class="communitylink_achievement communitylink_achivement_plusmore"
+                                                href="https://steamcommunity.com/stats/2322010/achievements">
+                                                View<br>all 48 </a>
+                                            <div style="clear: left;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div id="appDetailsUnderlinedLinks"
+                                        class="block responsive_apppage_details_left game_details underlined_links">
+                                        <div class="block_content">
+                                            <div class="block_content_inner">
+                                                <div id="genresAndManufacturer" class="details_block">
+
+                                                    <b>Title:</b> Steam Scraper on FastAPI<br>
+
+                                                    <b>Genre:</b> <span
+                                                        data-panel="{&quot;flow-children&quot;:&quot;row&quot;}">
+                                                        <a
+                                                            href="https://store.steampowered.com/genre/Action/?snr=1_5_9__408">Scraper</a>,
+                                                        <a
+                                                            href="https://store.steampowered.com/genre/RPG/?snr=1_5_9__408">Web
+                                                            App</a></span><br>
+
+                                                    <div class="dev_row">
+                                                        <b>Developer:</b>
+
+                                                        <a
+                                                            href="https://store.steampowered.com/developer/playstationstudios?snr=1_5_9__408">
+                                                            iABn0rma1
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="dev_row">
+                                                        <b>Publisher:</b>
+
+                                                        <a
+                                                            href="https://store.steampowered.com/publisher/playstationstudios?snr=1_5_9__408">
+                                                            Aman Barthwal
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="dev_row">
+                                                        <b>Franchise:</b>
+
+                                                        <a
+                                                            href="https://store.steampowered.com/franchise/playstationstudios?snr=1_5_9__408">
+                                                            FastAPI</a>,
+                                                        <a
+                                                            href="https://store.steampowered.com/franchise/playstationstudios?snr=1_5_9__408">
+                                                            BeautifulSoup</a>,
+                                                        <a
+                                                            href="https://store.steampowered.com/franchise/playstationstudios?snr=1_5_9__408">
+                                                            Vercel</a>
+                                                    </div>
+
+                                                    <b>Release Date:</b> 12 Oct, 2002<br>
+
+                                                </div>
+
+                                                <div class="details_block" style="padding-top: 14px;">
+
+                                                    <a class="linkbar responsive_chevron_right"
+                                                        href="https://store.steampowered.com/newshub/?appids=2322010&amp;snr=1_5_9__408"
+                                                        target="_blank" rel="noreferrer">
+                                                        View update history </a>
+                                                    <a class="linkbar responsive_chevron_right"
+                                                        href="https://store.steampowered.com/newshub/app/2322010?snr=1_5_9__408"
+                                                        target="_blank" rel="noreferrer">
+                                                        Read related news </a>
+
+                                                    <a class="linkbar responsive_chevron_right"
+                                                        href="https://steamcommunity.com/app/2322010/discussions/"
+                                                        target="_blank" rel="noreferrer">
+                                                        View discussions </a>
+
+                                                    <a class="linkbar responsive_chevron_right"
+                                                        href="https://steamcommunity.com/actions/Search?T=ClanAccount&amp;K=God%20of%20War%20Ragnark">
+                                                        Find Community Groups </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="shareEmbedRow" class="block responsive_apppage_details_left"
+                                        data-panel="{&quot;flow-children&quot;:&quot;row&quot;}">
+                                        <a class="btnv6_blue_hoverfade btn_medium" href="#"
+                                            onclick="ShowShareDialog(); return false;"><span>Share</span></a>
+                                    </div>
+
+                                </div>
+                                <!-- End Right Column -->
+
+                                <div class="leftcol game_description_column"
+                                    data-panel="{&quot;flow-children&quot;:&quot;column&quot;}">
+
+                                    <a class="franchise_notice"
+                                        href="https://store.steampowered.com/franchise/playstationstudios?snr=1_5_9__2001">
+                                        <div class="background_image"
+                                            style="background-image: url('/static/banner.jpg');">
+                                        </div>
+                                        <div class="franchise_name">Check out my other Projects
+                                            on GitHub</div>
+                                        <div class="franchise_highlight"></div>
+                                    </a>
+
+                                    <div class="purchase_area_spacer">&nbsp;</div>
+
+                                    <div data-featuretarget="review-award"></div>
+
+                                    <div id="contentForThisGame_ctn">
+                                    </div>
+                                    <div class="game_page_autocollapse_ctn expanded">
+                                        <div data-panel="{&quot;type&quot;:&quot;PanelGroup&quot;}" id="aboutThisGame"
+                                            class="game_page_autocollapse" style="max-height: none;">
+                                            <div id="game_area_description" class="game_area_description">
+                                                <h2>About Me</h2>
+                                                <img class="bb_img"
+                                                    src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif">
+                                                <h2 class="bb_tag"><strong>Hi, I am Aman Barthwal </strong></h2>
+                                                an AI and Full-Stack enthusiast passionate about technology
+                                                and innovation. Over the years, I’ve delved into various technologies,
+                                                from machine learning and AI research to full-stack development,
+                                                constantly exploring new tools and frameworks that can push the
+                                                boundaries of what’s possible.
+                                                <br><br>
+                                                I am extremely fascinated by the merging of technology and creativity,
+                                                which has driven me to explore fields like AI research, where I’ve
+                                                contributed to designing new AI tools, and UI/UX design, which helps me
+                                                create visually appealing and user-friendly applications. My tech
+                                                journey is fueled by curiosity, and I'm always eager to embrace new
+                                                challenges and expand my expertise.
+                                                <br><br>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="game_page_autocollapse_ctn">
+                                        <div class="game_page_autocollapse sys_req" style="max-height: none;">
+                                            <h2>My System Configurations</h2>
+                                            <div class="sysreq_contents">
+                                                <div class="game_area_sys_req sysreq_content active" data-os="win">
+                                                    <div class="game_area_sys_req_leftCol">
+                                                        <ul>
+                                                            <strong>Macbook Air:</strong><br>
+                                                            <ul class="bb_ul">
+                                                                <li>Requires a 64-bit processor and operating system<br>
+                                                                </li>
+                                                                <li><strong>OS:</strong> Windows 10 64-bit<br></li>
+                                                                <li><strong>Processor:</strong> Intel i5-4670k or AMD
+                                                                    Ryzen 3 1200<br></li>
+                                                                <li><strong>Memory:</strong> 8 GB RAM<br></li>
+                                                                <li><strong>Graphics:</strong> NVIDIA GTX 1060 (6GB) or
+                                                                    AMD RX 5500 XT (8GB) or Intel Arc A750<br></li>
+                                                                <li><strong>DirectX:</strong> Version 12<br></li>
+                                                                <li><strong>Storage:</strong> 190 GB available space<br>
+                                                                </li>
+                                                                <li><strong>Additional Notes:</strong> Windows version
+                                                                    2004 2020-05-27 19041. 6GB GPU is required</li>
+                                                            </ul>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="game_area_sys_req_rightCol">
+                                                        <ul>
+                                                            <strong>Desktop:</strong><br>
+                                                            <ul class="bb_ul">
+                                                                <li>Requires a 64-bit processor and operating system<br>
+                                                                </li>
+                                                                <li><strong>OS:</strong> Windows 10 64-bit<br></li>
+                                                                <li><strong>Processor:</strong> Intel i5-8600 or AMD
+                                                                    Ryzen 5 3600<br></li>
+                                                                <li><strong>Memory:</strong> 16 GB RAM<br></li>
+                                                                <li><strong>Graphics:</strong> NVIDIA RTX 2060 Super or
+                                                                    AMD RX 5700 or Intel Arc A770<br></li>
+                                                                <li><strong>DirectX:</strong> Version 12<br></li>
+                                                                <li><strong>Storage:</strong> 190 GB available space<br>
+                                                                </li>
+                                                                <li><strong>Additional Notes:</strong> Windows version
+                                                                    2004 2020-05-27 19041. 6GB GPU is required</li>
+                                                            </ul>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div style="clear: both;"></div>
+                            </div>
+
+                            <div class="related_items_ctn">
+                                <div class="page_content game_description_column">
+
+                                    <div data-featuretarget="creatorhome-carousel"
+                                        data-props="{&quot;title&quot;:&quot;More from PlayStation Studios™&quot;,&quot;clanID&quot;:40425349,&quot;seeAllLink&quot;:&quot;https://store.steampowered.com/franchise/playstationstudios?snr=1_5_9__317&quot;,&quot;appIDs&quot;:[1593500,553850,2215430,2420110,1888930,1817070,2172010,1817190,1259420,1895880,1556200,1659420],&quot;rgAppIDToCreatorIDs&quot;:[],&quot;rgAllCreatorClanIDs&quot;:[],&quot;strFeatureFirstAppMsg&quot;:null}">
+                                        <div class="XIDYByW4BEOm-YiOiwGmO">
+                                            <div class="_2Tqj7EzRCeIvjCq0R1MZiy"
+                                                style="background-image: url(/static/ai-dev.jpg);">
+                                            </div>
+                                            <div class="_1QLD0WY-y0hqefed0ZhMn1">
+                                                <div class="_1KPIgTd9QjHihuus7qFfvw">
+                                                    <div><a
+                                                            href="https://store.steampowered.com/developer/playstationstudios/"><img
+                                                                class="PO1KWbUEvLt8ZVYRTAvMt"
+                                                                src="https://i-abnormal.netlify.app/images/icon.webp"></a>
+                                                    </div><img class="_3SJGdY8UrEOW9-M8zAiXEi"
+                                                        src="https://i-abnormal.netlify.app/images/icon.webp">
+                                                    <div class="_1l0-iEDSNo_iZ95BUT31hW"><a
+                                                            href="https://store.steampowered.com/developer/playstationstudios/">More
+                                                            from iABn0rma1</a></div>
+                                                </div>
+                                                <div class="_3o1Ri_nyL6GsPbTQZGSZcT">
+                                                    <a href="https://store.steampowered.com/franchise/playstationstudios?snr=1_5_9__317"
+                                                        class="_1SnxJyZ5foWgNRCNLmKm6H btnv6_grey_black btn_medium"><span>See
+                                                            All</span></a>
+                                                </div>
+                                            </div>
+
+                                            <div class="pfPilQ4t9RuI9__rVAFW9">
+                                                <div
+                                                    class="_3a31O8XB_8lD-yov8FB9-9 SaleSectionCarousel jGiY7rrZh0o9qrh7XNnZU items_in_row_4 Panel Focusable">
+                                                    <div class="carousel">
+                                                        <div class="_2M3SnYGvMvplWUC8yGhowo SliderBody">
+                                                            <div class="horizontalSlider___281Ls carousel__slider carousel__slider--horizontal vt-scrollable"
+                                                                aria-live="polite" aria-label="slider" tabindex="0"
+                                                                role="listbox">
+                                                                <div
+                                                                    class="carousel__slider-tray-wrapper carousel__slider-tray-wrap--horizontal">
+                                                                    <div class="sliderTray___-vHFQ _3J8-bW87K3pb8EpRNYq0JG carousel__slider-tray carousel__slider-tray--horizontal _2VUpHDtxN8lR1LDahY_cI2"
+                                                                        style="display: flex; align-items: stretch; width: 300%; transform: translateX(0%) translateX(0px); flex-direction: row;">
+                                                                        <div tabindex="0" aria-selected="true"
+                                                                            aria-label="slide" role="option"
+                                                                            class="slide___3-Nqo slideHorizontal___1NzNV carousel__slide carousel__slide--visible _3Cc2bMRML2lEkSyi2IAZ9G"
+                                                                            style="width: 8.333333%; padding-bottom: unset; height: unset;">
+                                                                            <div class="slideInner___2mfX9 carousel__inner-slide"
+                                                                                style="position: unset;">
+                                                                                <div style="">
+                                                                                    <div
+                                                                                        class="_292IWiCTro5jiTmIxiDfyc">
+                                                                                        <div
+                                                                                            class="_1dKR2IPNQSHs1MAIXBvt_R Panel Focusable">
+                                                                                            <div
+                                                                                                class="ImpressionTrackedElement">
+                                                                                                <div data-key="hover div"
+                                                                                                    class="_2ByoTNxZVuR0nzg_XXWXBV HvshcO0_xlagk-lVVN9D0 _22AcxR1RBDH6i-gjKRHYk0">
+                                                                                                    <a href="https://the-pensieve-project.vercel.app"
+                                                                                                        style="display: block; cursor: pointer;"
+                                                                                                        tabindex="0"
+                                                                                                        class="Focusable">
+                                                                                                        <div class="">
+                                                                                                            <div
+                                                                                                                class="">
+                                                                                                                <div
+                                                                                                                    class="_1xNQcxU9_OtQ-_PrMbviS4 CapsuleDecorators">
+                                                                                                                </div>
+                                                                                                                <div
+                                                                                                                    class="_2oW_y7Mm3ihf1XQ0C1VWhx CapsuleImageCtn">
+                                                                                                                    <img class="_2eQ4mkpf4IzUp1e9NnM2Wr"
+                                                                                                                        src="https://github.com/iABn0rma1/The.Pensieve-Project/raw/main/assets/img/pensieve.jpeg"
+                                                                                                                        loading="lazy"
+                                                                                                                        width="460"
+                                                                                                                        height="215"
+                                                                                                                        alt="The Pensieve Project">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div tabindex="0" aria-selected="true"
+                                                                            aria-label="slide" role="option"
+                                                                            class="slide___3-Nqo slideHorizontal___1NzNV carousel__slide carousel__slide--visible _3Cc2bMRML2lEkSyi2IAZ9G"
+                                                                            style="width: 8.333333%; padding-bottom: unset; height: unset;">
+                                                                            <div class="slideInner___2mfX9 carousel__inner-slide"
+                                                                                style="position: unset;">
+                                                                                <div style="">
+                                                                                    <div
+                                                                                        class="_292IWiCTro5jiTmIxiDfyc">
+                                                                                        <div
+                                                                                            class="_1dKR2IPNQSHs1MAIXBvt_R Panel Focusable">
+                                                                                            <div
+                                                                                                class="ImpressionTrackedElement">
+                                                                                                <div data-key="hover div"
+                                                                                                    class="_2ByoTNxZVuR0nzg_XXWXBV HvshcO0_xlagk-lVVN9D0 _22AcxR1RBDH6i-gjKRHYk0">
+                                                                                                    <a href="http://iablogs.vercel.app"
+                                                                                                        style="display: block; cursor: pointer;"
+                                                                                                        tabindex="0"
+                                                                                                        class="Focusable">
+                                                                                                        <div class="">
+                                                                                                            <div
+                                                                                                                class="">
+                                                                                                                <div
+                                                                                                                    class="_1xNQcxU9_OtQ-_PrMbviS4 CapsuleDecorators">
+                                                                                                                </div>
+                                                                                                                <div
+                                                                                                                    class="_2oW_y7Mm3ihf1XQ0C1VWhx CapsuleImageCtn">
+                                                                                                                    <img class="_2eQ4mkpf4IzUp1e9NnM2Wr"
+                                                                                                                        src="https://aeolidia.com/wp-content/uploads/2015/03/no-blog-body-615x410.jpg"
+                                                                                                                        loading="lazy"
+                                                                                                                        width="460"
+                                                                                                                        height="215"
+                                                                                                                        alt="My Blogger">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div tabindex="0" aria-selected="true"
+                                                                            aria-label="slide" role="option"
+                                                                            class="slide___3-Nqo slideHorizontal___1NzNV carousel__slide carousel__slide--visible _3Cc2bMRML2lEkSyi2IAZ9G"
+                                                                            style="width: 8.333333%; padding-bottom: unset; height: unset;">
+                                                                            <div class="slideInner___2mfX9 carousel__inner-slide"
+                                                                                style="position: unset;">
+                                                                                <div style="">
+                                                                                    <div
+                                                                                        class="_292IWiCTro5jiTmIxiDfyc">
+                                                                                        <div
+                                                                                            class="_1dKR2IPNQSHs1MAIXBvt_R Panel Focusable">
+                                                                                            <div
+                                                                                                class="ImpressionTrackedElement">
+                                                                                                <div data-key="hover div"
+                                                                                                    class="_2ByoTNxZVuR0nzg_XXWXBV HvshcO0_xlagk-lVVN9D0 _22AcxR1RBDH6i-gjKRHYk0">
+                                                                                                    <a href="https://aestheticintelligence.onrender.com"
+                                                                                                        style="display: block; cursor: pointer;"
+                                                                                                        tabindex="0"
+                                                                                                        class="Focusable">
+                                                                                                        <div class="">
+                                                                                                            <div
+                                                                                                                class="">
+                                                                                                                <div
+                                                                                                                    class="_1xNQcxU9_OtQ-_PrMbviS4 CapsuleDecorators">
+                                                                                                                </div>
+                                                                                                                <div
+                                                                                                                    class="_2oW_y7Mm3ihf1XQ0C1VWhx CapsuleImageCtn">
+                                                                                                                    <img class="_2eQ4mkpf4IzUp1e9NnM2Wr"
+                                                                                                                        src="https://cdn-cjhgk.nitrocdn.com/CXxGixRVyChwAxySbAyltuCiQXRKaWDN/assets/images/optimized/rev-e29aa1c/www.newbeauty.com/wp-content/uploads/2024/04/ai-good-bad-ugly-2-1024x614.jpg"
+                                                                                                                        loading="lazy"
+                                                                                                                        width="460"
+                                                                                                                        height="215"
+                                                                                                                        alt="Ghost of Tsushima DIRECTOR'S CUT">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div tabindex="0" aria-selected="true"
+                                                                            aria-label="slide" role="option"
+                                                                            class="slide___3-Nqo slideHorizontal___1NzNV carousel__slide carousel__slide--visible _3Cc2bMRML2lEkSyi2IAZ9G"
+                                                                            style="width: 8.333333%; padding-bottom: unset; height: unset;">
+                                                                            <div class="slideInner___2mfX9 carousel__inner-slide"
+                                                                                style="position: unset;">
+                                                                                <div style="">
+                                                                                    <div
+                                                                                        class="_292IWiCTro5jiTmIxiDfyc">
+                                                                                        <div
+                                                                                            class="_1dKR2IPNQSHs1MAIXBvt_R Panel Focusable">
+                                                                                            <div
+                                                                                                class="ImpressionTrackedElement">
+                                                                                                <div data-key="hover div"
+                                                                                                    class="_2ByoTNxZVuR0nzg_XXWXBV HvshcO0_xlagk-lVVN9D0 _22AcxR1RBDH6i-gjKRHYk0">
+                                                                                                    <a href="https://wallpaper-hub.vercel.app"
+                                                                                                        style="display: block; cursor: pointer;"
+                                                                                                        tabindex="0"
+                                                                                                        class="Focusable">
+                                                                                                        <div class="">
+                                                                                                            <div
+                                                                                                                class="">
+                                                                                                                <div
+                                                                                                                    class="_1xNQcxU9_OtQ-_PrMbviS4 CapsuleDecorators">
+                                                                                                                </div>
+                                                                                                                <div
+                                                                                                                    class="_2oW_y7Mm3ihf1XQ0C1VWhx CapsuleImageCtn">
+                                                                                                                    <img class="_2eQ4mkpf4IzUp1e9NnM2Wr"
+                                                                                                                        src="https://png.pngtree.com/thumb_back/fh260/background/20230704/pngtree-d-render-of-a-website-builder-for-a-graphic-design-studio-image_3761809.jpg"
+                                                                                                                        loading="lazy"
+                                                                                                                        width="460"
+                                                                                                                        height="215"
+                                                                                                                        alt="Horizon Forbidden West™ Complete Edition">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="responsive_apppage_reviewblock_ctn" class="rightcol game_meta_data"
+                                        style=""></div>
+
+                                </div>
+                            </div>
+
+                            <div class="review_ctn">
+                                <div class="page_content">
+
+                                    <div id="app_reviews_hash" class="app_reviews_area">
+
+                                        <div id="review_recent_events_container" class="review_recent_events  ">
+                                        </div>
+
+                                        <div id="review_selected_filters"></div>
+
+                                        <div id="Reviews_loading" class="user_reviews_container">
+                                            <div class="LoadingWrapper">
+
+                                                <!-- Scroll to Top Button -->
+                                                <button onclick="scrollToTop()" id="scrollBtn"
+                                                    title="Go to top">↑</button>
+                                                <script>
+                                                    // Get the button:
+                                                    let scrollButton = document.getElementById("scrollBtn");
+                                                    function scrollFunction() {
+                                                        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                                                            scrollButton.style.display = "block";
+                                                        } else {
+                                                            scrollButton.style.display = "none";
+                                                        }
+                                                    }
+                                                    // When the user clicks on the button, scroll to the top of the document
+                                                    function scrollToTop() {
+                                                        window.scrollTo({
+                                                            top: 0,
+                                                            behavior: 'smooth' // Smooth scroll effect
+                                                        });
+                                                    }
+                                                </script>
+
+                                            </div>
+                                        </div>
+                                        <div style="clear: left"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div data-panel="{&quot;maintainY&quot;:true,&quot;bFocusRingRoot&quot;:true,&quot;onMoveDown&quot;:&quot;BlockMovement&quot;,&quot;onMoveUp&quot;:&quot;BlockMovement&quot;,&quot;flow-children&quot;:&quot;column&quot;}"
+                            id="purchaseOptionsContentTablet" class="purchase_options_content_tablet"
+                            style="display: none;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="ShareModal" style="display: none">
+                    <div class="share share_dialog">
+
+                        <div class="share_dialog_content"><label for="linkShareValue" hidden="">Link to the game's store
+                                page</label><textarea id="shareDialogLinkStoreLink" class="share_dialog_value"
+                                onclick="ShareDialogCopyToClipboard();"
+                                readonly="">https://fast-api-steam-scraper.vercel.app/</textarea>
+                        </div>
+                        <div id="shareDialogResult" class="share_dialog_result"></div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

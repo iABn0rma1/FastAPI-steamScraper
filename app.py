@@ -31,6 +31,14 @@ async def get_discounted_games(request: Request, n: int = 50, offset: int = 0):
     count = len(games)
     return templates.TemplateResponse("index.html", {"request": request, "games": games, "epicGames":epicGames, "count": count})
 
+@app.get("/about")
+async def about_page(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
+
+@app.get("/test")
+async def about_page(request: Request):
+    return templates.TemplateResponse("test.html", {"request": request})
+
 @app.get("/discounts", response_model=list[Game])
 async def get_discounted_games(request: Request, n: int = 50, offset: int = 0):
     client_ip = request.client.host
