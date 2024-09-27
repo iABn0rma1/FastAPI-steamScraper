@@ -1047,25 +1047,20 @@
 
                                     <div id="queueCtn" class="queue_ctn in_queue">
                                         <div id="queueActionsCtn" class="queue_actions_ctn">
-                                            <div id="nextInDiscoveryQueue" class="next_in_queue_area">
-                                                <div class="queue_reason_description queue_settings_link_ctn">
-                                                    Next Adventure Awaits!
-                                                </div>
-                                                <div class="btn_next_in_queue btn_next_in_queue_trigger">
-                                                    <div class="next_in_queue_content">
-                                                        <span>Discover More<br>
-                                                            <span class="queue_sub_text">(69+ discounts)</span>
-                                                        </span>
+                                            <a href="/">
+                                                <div id="nextInDiscoveryQueue" class="next_in_queue_area">
+                                                    <div class="queue_reason_description queue_settings_link_ctn">
+                                                        Next Adventure Awaits!
+                                                    </div>
+                                                    <div class="btn_next_in_queue btn_next_in_queue_trigger">
+                                                        <div class="next_in_queue_content">
+                                                            <span>Discover More<br>
+                                                                <span class="queue_sub_text">(69+ discounts)</span>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <form id="next_in_queue_form" method="post"
-                                                action="https://fast-api-steam-scraper.vercel.app/"
-                                                style="display: none;">
-                                                <input type="hidden" name="sessionid" value="3dfb92d6e8136f901ad4fe59">
-                                                <input type="hidden" name="appid_to_clear_from_queue" value="2322010">
-                                                <input type="hidden" name="snr" value="1_5_9__1324">
-                                            </form>
+                                            </a>
 
                                             <div class="queue_reason_description">
                                                 This project is in your discovery queue because it is popular.
@@ -1378,8 +1373,7 @@
                                 <div class="leftcol game_description_column"
                                     data-panel="{&quot;flow-children&quot;:&quot;column&quot;}">
 
-                                    <a class="franchise_notice"
-                                        href="https://github.com/iABn0rma1">
+                                    <a class="franchise_notice" href="https://github.com/iABn0rma1">
                                         <div class="background_image"
                                             style="background-image: url('/static/ai-dev.jpg');">
                                         </div>
@@ -1607,14 +1601,12 @@
 
                 <div id="ShareModal" style="display: none">
                     <div class="share share_dialog">
-
                         <div class="share_dialog_content"><label for="linkShareValue" hidden="">Link to the game's store
                                 page</label><textarea id="shareDialogLinkStoreLink" class="share_dialog_value"
                                 onclick="ShareDialogCopyToClipboard();"
                                 readonly="">https://fast-api-steam-scraper.vercel.app/</textarea>
                         </div>
                         <div id="shareDialogResult" class="share_dialog_result"></div>
-
                     </div>
                 </div>
 
