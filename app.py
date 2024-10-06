@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from scraper import SteamStoreScraper, EpicGamesScraper
+from fastapi import FastAPI, Request, HTTPException
 
 app = FastAPI()
 
@@ -74,6 +75,10 @@ async def get_top_sellers(request: Request, n: int = 50, offset: int = 0):
     games = scraper.ScrapeGames(n0Games=n, offset=offset, category="top_sellers")
     count = len(games)
     return templates.TemplateResponse("index.html", {"request": request, "games": games, "count": count})
+
+@app.exception_handler(404)
+async def custom_404_handler(request: Request, exc: HTTPException):
+    return templates.TemplateResponse("404.html", {"request": request}, status_code=404)
 
 def get_region_from_ip(ip):
     try:
