@@ -21,6 +21,10 @@ class Game(BaseModel):
     Reviews: str
     Review_Count: str
 
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return RedirectResponse(url="/static/assets/icon/favicon.ico")
+
 @app.get("/", response_model=list[Game])
 async def get_discounted_games(request: Request, n: int = 50, offset: int = 0):
     client_ip = request.client.host
