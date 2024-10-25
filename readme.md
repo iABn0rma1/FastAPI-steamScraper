@@ -1,6 +1,7 @@
 # FastAPI Steam Scraper
 
 A web application that scrapes and displays discounted Steam games using FastAPI.
+[Click here for Live demo.](https://vercel.com/iabn0rma1s-projects)
 
 ## Objectives
 
@@ -38,10 +39,10 @@ pip install -r requirements.txt
 To start the FastAPI server, run the following command:
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn app:app --host 0.0.0.0 --port 8000
 ```
 
-Visit `http://127.0.0.1:8000/` in your browser.
+Visit `localhost:8000/` in your browser.
 
 ## Contributing
 
