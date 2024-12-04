@@ -1,7 +1,7 @@
 # FastAPI Steam Scraper
 
 A web application that scrapes and displays discounted Steam games using FastAPI.
-[Click here for Live demo.](https://vercel.com/iabn0rma1s-projects)
+[Click here for Live demo.](https://epic-steam-deals.vercel.app/)
 
 ## Objectives
 
